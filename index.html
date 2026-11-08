@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="color-scheme" content="dark">
+  <meta name="darkreader-lock">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TabStation</title>
+  <meta name="description" content="Ubah tablet Android menjadi desktop: Dock dan menu bar ala macOS atau taskbar ala Windows, jendela dengan tombol tutup/minimize/maximize, Launchpad, dan Control Center. Tanpa root, lewat Shizuku.">
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
+  <link rel="icon" href="logo.png" type="image/png">
+  <style>
+    /* Halaman sengaja gelap (seperti aplikasinya); deklarasi ini mencegah mode gelap paksa browser mewarnai ulang. */
+    :root {
+      color-scheme: dark;
+      /* dari ikon: tile biru bergradien + aksen ungu seperti wallpaper */
+      --bg: #0b1020; --surface: #121a30; --surface-2: #18223d; --line: #24304f;
+      --text: #e8edf7; --muted: #93a0b8; --accent: #4fa3ff; --accent-2: #7fd8ff; --accent-3: #a98bff;
+      --accent-ink: #06122b; --warn: #ffb86b;
+      --grad: linear-gradient(120deg, var(--accent) 0%, var(--accent-2) 60%, var(--accent-3) 100%);
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body { margin: 0; background: radial-gradient(900px 520px at 85% -120px, rgba(79,163,255,.18), transparent 70%), radial-gradient(700px 460px at -10% 180px, rgba(169,139,255,.12), transparent 70%), var(--bg); background-repeat: no-repeat; color: var(--text); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    a { color: var(--accent); }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px; }
+    header.top { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .3px; }
+    .brand img { width: 34px; height: 34px; border-radius: 9px; }
+    .lang button { background: none; border: 1px solid var(--line); color: var(--muted); padding: 4px 10px; border-radius: 999px; cursor: pointer; font: inherit; font-size: 13px; }
+    .lang button[aria-pressed="true"] { color: var(--text); border-color: var(--accent); }
+    .hero { padding: 36px 0 28px; }
+    .hero .mark { width: 88px; height: 88px; border-radius: 22px; box-shadow: 0 14px 40px rgba(79,163,255,.35); margin-bottom: 20px; }
+    .grad-text { color: var(--accent); }
+    @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+      .grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    }
+    .hero h1 { font-size: clamp(28px, 6vw, 44px); line-height: 1.15; margin: 0 0 12px; }
+    .hero p { color: var(--muted); font-size: 18px; margin: 0 0 24px; max-width: 680px; }
+    .cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .btn { display: inline-block; background: var(--grad); color: var(--accent-ink); font-weight: 700; text-decoration: none; padding: 14px 22px; border-radius: 12px; box-shadow: 0 8px 24px rgba(79,163,255,.25); transition: transform .15s, box-shadow .15s; }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 12px 30px rgba(79,163,255,.35); }
+    .btn.ghost { background: rgba(255,255,255,.02); color: var(--text); border: 1px solid var(--line); font-weight: 600; box-shadow: none; }
+    .btn.ghost:hover { border-color: var(--accent); }
+    .meta { color: var(--muted); font-size: 13px; margin-top: 14px; word-break: break-all; }
+    .meta code { color: var(--text); }
+    .shot-hero { margin-top: 28px; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 20px 60px rgba(0,0,0,.45); }
+    .shot-hero img { display: block; width: 100%; height: auto; }
+    section { padding: 28px 0; border-top: 1px solid var(--line); }
+    h2 { font-size: 22px; margin: 0 0 16px; }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+    .gallery figure { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+    .gallery a { display: block; }
+    .gallery img { display: block; width: 100%; height: auto; transition: transform .2s; }
+    .gallery a:hover img { transform: scale(1.02); }
+    .gallery figcaption { padding: 10px 14px 12px; font-size: 14px; color: var(--muted); }
+    .gallery figcaption b { display: block; color: var(--text); font-size: 15px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+    .card { background: linear-gradient(180deg, var(--surface-2), var(--surface)); border: 1px solid var(--line); border-radius: 14px; padding: 16px; position: relative; overflow: hidden; transition: border-color .15s; }
+    .card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 2px; background: var(--grad); opacity: .8; }
+    .card:hover { border-color: #33466f; }
+    .card h3 { margin: 0 0 6px; font-size: 16px; }
+    .card p { margin: 0; color: var(--muted); font-size: 14px; }
+    ol.steps { list-style: none; padding: 0; margin: 0; counter-reset: step; display: grid; gap: 10px; }
+    ol.steps li { counter-increment: step; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px 14px 56px; position: relative; }
+    ol.steps li::before { content: counter(step); position: absolute; left: 16px; top: 14px; width: 28px; height: 28px; border-radius: 50%; background: var(--grad); color: var(--accent-ink); font-weight: 700; display: grid; place-items: center; font-size: 14px; }
+    ol.steps b { display: block; }
+    ol.steps span { color: var(--muted); font-size: 14px; }
+    .tag { display: inline-block; font-size: 11px; padding: 1px 8px; border-radius: 999px; margin-left: 6px; vertical-align: 2px; border: 1px solid var(--line); color: var(--muted); }
+    .tag.req { border-color: var(--accent); color: var(--accent); }
+    pre { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; overflow-x: auto; font-size: 14px; }
+    details.group { background: none; border: 0; padding: 0; margin: 0 0 6px; }
+    details.group > summary { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding: 12px 28px 12px 0; border-bottom: 1px solid var(--line); }
+    details.group[open] > summary { color: var(--accent); margin-bottom: 10px; }
+    details.group > summary::after { top: 15px; }
+    details.group[open] > summary::after { top: 19px; border-color: var(--accent); }
+    details.group .count { color: var(--muted); font-weight: 400; letter-spacing: 0; text-transform: none; margin-left: 6px; }
+    details { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 0 16px; margin-bottom: 8px; }
+    details[open] { border-color: var(--accent); }
+    summary { cursor: pointer; font-weight: 600; padding: 13px 28px 13px 0; list-style: none; position: relative; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: ""; position: absolute; right: 4px; top: 18px; width: 8px; height: 8px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); transition: transform .15s; }
+    details[open] > summary::after { transform: rotate(-135deg); top: 22px; }
+    details p { color: var(--muted); margin: 0 0 14px; font-size: 15px; line-height: 1.55; }
+    details p + p { margin-top: -6px; }
+    .contact { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin-top: 18px; }
+    .contact p { margin: 0; color: var(--muted); font-size: 15px; }
+    .contact a.mail { display: inline-block; background: var(--grad); color: var(--accent-ink); font-weight: 600; text-decoration: none; padding: 10px 16px; border-radius: 10px; }
+    .support { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; background: var(--surface); border: 1px solid var(--accent); border-radius: 14px; padding: 18px; }
+    .support p { margin: 0; color: var(--muted); font-size: 15px; max-width: 600px; }
+    .support p b { color: var(--text); }
+    .note { border-left: 3px solid var(--warn); padding: 8px 14px; background: var(--surface); border-radius: 0 10px 10px 0; color: var(--muted); font-size: 14px; margin-top: 18px; }
+    footer { color: var(--muted); font-size: 13px; padding: 28px 0 40px; border-top: 1px solid var(--line); }
+    .to-top { position: fixed; right: 16px; bottom: 20px; width: 46px; height: 46px; border-radius: 50%; border: 0; background: var(--grad); color: var(--accent-ink); font-weight: 700; font-size: 20px; line-height: 1; cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,.35); opacity: 0; transform: translateY(12px); pointer-events: none; transition: opacity .2s, transform .2s; }
+    .to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+    /* penampil gambar layar penuh */
+    .viewer { position: fixed; inset: 0; background: rgba(4,7,15,.92); display: grid; place-items: center; padding: 16px; z-index: 10; }
+    .viewer img { max-width: 100%; max-height: 92vh; border-radius: 10px; box-shadow: 0 20px 60px rgba(0,0,0,.6); }
+    [hidden] { display: none !important; }
+    [data-en] { display: none; }
+    html[lang="en"] [data-id] { display: none; }
+    html[lang="en"] [data-en] { display: revert; }
+  .keys { overflow-x: auto; }
+.keys table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.keys td { padding: 9px 12px; border-bottom: 1px solid #22304d; color: var(--muted); }
+.keys td:first-child { white-space: nowrap; color: inherit; }
+kbd { display: inline-block; min-width: 1.6em; padding: 2px 7px; border: 1px solid #3a4c74; border-bottom-width: 2px; border-radius: 6px; background: #16203a; font: 12.5px ui-monospace, SFMono-Regular, Menlo, monospace; text-align: center; }
+.lead { color: var(--muted); margin: -4px 0 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><img src="logo.svg" alt=""> TabStation</div>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-set-lang="id" aria-pressed="true">ID</button>
+      <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+
+  <div class="hero">
+    <img class="mark" src="logo.svg" alt="">
+    <h1 data-id>Tablet Android jadi <span class="grad-text">desktop ala macOS atau Windows</span></h1>
+    <h1 data-en>Turn an Android tablet into <span class="grad-text">a macOS- or Windows-style desktop</span></h1>
+    <p data-id>Dock dan menu bar, atau taskbar dan Start. Jendela aplikasi dengan tombol tutup, minimize, dan maximize, Launchpad, Control Center, dan split screen yang mudah ditutup. Matikan kapan saja dan tablet kembali ke tampilan bawaan. Tanpa root. Internet hanya untuk widget Cuaca dan Saham.</p>
+    <p data-en>A Dock and menu bar, or a taskbar and Start. App windows with close, minimize and maximize buttons, Launchpad, Control Center, and split screen that is easy to leave. Switch it off any time and the tablet goes back to its own launcher. No root. Internet is only used by the Weather and Stocks widgets.</p>
+    <div class="cta">
+      <a class="btn" href="https://github.com/Sammy219/tabstation-app/releases/download/v2.17.0/TabStation-2.17.0.apk">
+        <span data-id>Unduh APK 2.17.0</span><span data-en>Download APK 2.17.0</span>
+      </a>
+      <a class="btn ghost" href="https://github.com/Sammy219/tabstation-app/releases">
+        <span data-id>Semua rilis</span><span data-en>All releases</span>
+      </a>
+      <a class="btn ghost" href="#setup">
+        <span data-id>Cara setup</span><span data-en>How to set up</span>
+      </a>
+    </div>
+    <div class="meta">Android 10+ · <span data-id>untuk tablet, diuji di Xiaomi Pad (HyperOS)</span><span data-en>for tablets, tested on Xiaomi Pad (HyperOS)</span> · <span data-id>disarankan</span><span data-en>recommended</span> Shizuku · SHA-256 <code>6c883671c79ef618380cd76f25ebe7ba46204ed1ef164191775ebf372567cad1</code></div>
+    <div class="shot-hero">
+      <img src="screenshots/desktop.jpg" width="1600" height="1068" alt="Desktop TabStation: menu bar, jendela aplikasi, dan Dock" data-view>
+    </div>
+  </div>
+
+  <section>
+    <h2 data-id>Tangkapan layar</h2><h2 data-en>Screenshots</h2>
+    <div class="gallery">
+      <figure><a href="screenshots/desktop.jpg" data-view><img src="screenshots/desktop.jpg" loading="lazy" alt="Desktop dan Dock"></a>
+        <figcaption><b><span data-id>Desktop &amp; Dock</span><span data-en>Desktop &amp; Dock</span></b><span data-id>Menu bar dengan RAM, CPU, Wi-Fi, Bluetooth, dan jam; Dock berisi aplikasi favorit dan yang sedang terbuka.</span><span data-en>A menu bar with RAM, CPU, Wi-Fi, Bluetooth and clock; the Dock holds favourite and open apps.</span></figcaption></figure>
+      <figure><a href="screenshots/launchpad.jpg" data-view><img src="screenshots/launchpad.jpg" loading="lazy" alt="Launchpad"></a>
+        <figcaption><b>Launchpad</b><span data-id>Semua aplikasi dengan pencarian, dibuka dengan animasi blur.</span><span data-en>Every app with search, opened with a blur animation.</span></figcaption></figure>
+      <figure><a href="screenshots/split.jpg" data-view><img src="screenshots/split.jpg" loading="lazy" alt="Panel split screen"></a>
+        <figcaption><b>Split screen</b><span data-id>Sisi kosong menampilkan saran aplikasi dan tombol "Keluar dari split".</span><span data-en>An empty side suggests apps and offers "Leave split".</span></figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-id>Fitur</h2><h2 data-en>Features</h2>
+    <div class="grid">
+      <div class="card">
+        <h3 data-id>Dua tema: macOS &amp; Windows</h3><h3 data-en>Two themes: macOS &amp; Windows</h3>
+        <p data-id>macOS: menu bar, Dock, Launchpad, Control Center dengan Liquid Glass (transparansi bisa diatur). Windows: taskbar, Start, tray jam dan baterai, info RAM·CPU di kiri bawah.</p>
+        <p data-en>macOS: menu bar, Dock, Launchpad, Control Center with Liquid Glass (adjustable transparency). Windows: taskbar, Start, clock and battery tray, RAM·CPU in the bottom-left.</p>
+      </div>
+      <div class="card">
+        <h3 data-id>Tombol jendela</h3><h3 data-en>Window buttons</h3>
+        <p data-id>Lampu merah-kuning-hijau (macOS) atau — ▢ ✕ (Windows) di jendela yang aktif. Minimize ke Dock dengan animasi, maximize ke layar penuh sungguhan, tutup semua jendela aplikasi sekaligus.</p>
+        <p data-en>Red-yellow-green lights (macOS) or — ▢ ✕ (Windows) on the active window. Minimize to the Dock with an animation, maximize to true full screen, close every window of the app at once.</p>
+      </div>
+      <div class="card">
+        <h3 data-id>Taskbar yang tidak berpindah-pindah</h3><h3 data-en>A taskbar that stays put</h3>
+        <p data-id>Hanya aplikasi yang disematkan dan yang sedang terbuka. Urutan tetap, dan ikon bisa digeser untuk mengatur posisinya seperti di Windows atau Mac.</p>
+        <p data-en>Only pinned and open apps. The order stays fixed, and icons can be dragged to rearrange them like on Windows or a Mac.</p>
+      </div>
+      <div class="card">
+        <h3 data-id>Split screen yang jelas</h3><h3 data-en>Clear split screen</h3>
+        <p data-id>Tombol tutup muncul di sisi yang diketuk; sisi lain langsung mengisi layar tanpa launcher Xiaomi berkedip. Split yang tersangkut atau berisi game dibubarkan otomatis.</p>
+        <p data-en>A close button appears on the side you tap; the other side fills the screen without the Xiaomi launcher flashing. Stuck splits, or splits with a game, are undone automatically.</p>
+      </div>
+      <div class="card">
+        <h3 data-id>Navigasi tanpa bilah ganda</h3><h3 data-en>Navigation without a second bar</h3>
+        <p data-id>Selama TabStation menyala, tombol Home membuka desktop TabStation dan tombol Kembali ada di Dock. Saat dimatikan, launcher Xiaomi dan gesture HyperOS kembali seperti semula.</p>
+        <p data-en>While TabStation is on, Home opens the TabStation desktop and Back lives in the Dock. Switch it off and the Xiaomi launcher and HyperOS gestures come back as before.</p>
+      </div>
+      <div class="card">
+        <h3 data-id>Dua bahasa</h3><h3 data-en>Two languages</h3>
+        <p data-id>Bahasa Indonesia atau English, dipilih sebelum TabStation dinyalakan atau kapan saja di Pengaturan. Berlaku untuk menu bar, Dock, Launchpad, Control Center, widget, Spotlight, dan dialog.</p>
+        <p data-en>Bahasa Indonesia or English, chosen before switching TabStation on or any time in Settings. Covers the menu bar, Dock, Launchpad, Control Center, widgets, Spotlight and dialogs.</p>
+      </div>
+      <div class="card">
+        <h3 data-id>Ringan &amp; hemat data</h3><h3 data-en>Light &amp; frugal</h3>
+        <p data-id>Satu sesi shell Shizuku untuk semua perintah, polling berhenti saat layar mati, dan cache ikon dilepas saat Android kekurangan memori. Internet hanya dipakai widget Cuaca dan Saham, paling sering 30 menit sekali.</p>
+        <p data-en>One Shizuku shell session for every command, polling pauses while the screen is off, and icon caches are dropped when Android is low on memory. Internet is only used by the Weather and Stocks widgets, at most every 30 minutes.</p>
+      </div>
+      <div class="card">
+        <h3 data-id>Widget yang bisa diatur</h3><h3 data-en>Widgets you can arrange</h3>
+        <p data-id>Kalender, Cuaca, Jam Dunia, Saham, dan Screen Time di desktop macOS. Tahan lalu geser untuk memindah, mode Edit untuk menambah atau menghapus.</p>
+        <p data-en>Calendar, Weather, World Clock, Stocks and Screen Time on the macOS desktop. Hold and drag to move, Edit mode to add or remove.</p>
+      </div>
+      <div class="card">
+        <h3 data-id>Spotlight &amp; Snap Layouts</h3><h3 data-en>Spotlight &amp; Snap Layouts</h3>
+        <p data-id>Cari aplikasi, pengaturan, hitung cepat, atau cari di web. Tahan tombol ▢ / lampu hijau untuk menata jendela separuh, ⅔ + ⅓, tiga kolom, atau empat kotak.</p>
+        <p data-en>Find apps and settings, do quick maths or search the web. Hold the ▢ button / green light to tile windows in halves, ⅔ + ⅓, thirds or quarters.</p>
+      </div>
+      <div class="card">
+        <h3 data-id>Pintasan keyboard</h3><h3 data-en>Keyboard shortcuts</h3>
+        <p data-id>Ctrl+Alt (⌃⌥) + huruf atau panah, Alt+Spasi, dan Alt+` untuk keyboard fisik. Dipilih supaya tidak bentrok dengan pintasan HyperOS dan Android.</p>
+        <p data-en>Ctrl+Alt (⌃⌥) + a letter or arrow, Alt+Space and Alt+` for a physical keyboard. Chosen so they don't clash with HyperOS or Android shortcuts.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="shortcuts">
+    <h2 data-id>Pintasan keyboard</h2><h2 data-en>Keyboard shortcuts</h2>
+    <p class="lead" data-id>Butuh keyboard fisik dan Shizuku. Di keyboard gaya Mac, Ctrl = ⌃ dan Alt = ⌥. Alt/Win + Tab, Win + panah, dan Win + huruf tetap milik HyperOS.</p>
+    <p class="lead" data-en>Needs a physical keyboard and Shizuku. On a Mac-style keyboard Ctrl = ⌃ and Alt = ⌥. Alt/Win + Tab, Win + arrows and Win + letters stay with HyperOS.</p>
+    <div class="keys">
+      <table>
+        <tr><td><kbd>Alt</kbd> + <kbd>Space</kbd></td><td data-id>Spotlight (macOS) / Cari (Windows)</td><td data-en>Spotlight (macOS) / Search (Windows)</td></tr>
+        <tr><td><kbd>Alt</kbd> + <kbd>`</kbd></td><td data-id>Pengalih jendela TabStation (Shift = mundur)</td><td data-en>TabStation window switcher (Shift = back)</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>A</kbd></td><td data-id>Launchpad / Start</td><td data-en>Launchpad / Start</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>D</kbd></td><td data-id>Tampilkan desktop</td><td data-en>Show desktop</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>E</kbd></td><td data-id>File Manager</td><td data-en>File manager</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>C</kbd></td><td data-id>Control Center / Quick Settings</td><td data-en>Control Center / Quick Settings</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>N</kbd></td><td data-id>Pusat Notifikasi</td><td data-en>Notification Center</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>←</kbd> / <kbd>→</kbd></td><td data-id>Jendela separuh kiri / kanan</td><td data-en>Window to the left / right half</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd></td><td data-id>Layar penuh / minimize</td><td data-en>Full screen / minimize</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>Q</kbd></td><td data-id>Tutup aplikasi</td><td data-en>Close the app</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>R</kbd></td><td data-id>Refresh</td><td data-en>Refresh</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>L</kbd></td><td data-id>Kunci layar</td><td data-en>Lock screen</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section id="setup">
+    <h2 data-id>Pengaturan awal</h2><h2 data-en>First-time setup</h2>
+    <p data-id>Halaman <b>Panduan setup</b> di aplikasi memeriksa setiap langkah, dan dengan Shizuku hampir semua izin bisa diberikan sekali ketuk ("Berikan semua izin lewat Shizuku"). Langkah yang disarankan tidak menghalangi pemakaian.</p>
+    <p data-en>The in-app <b>Setup guide</b> checks every step, and with Shizuku almost every permission is one tap ("Grant everything through Shizuku"). Recommended steps never block you.</p>
+    <ol class="steps">
+      <li><b><span data-id>Pasang APK</span><span data-en>Install the APK</span></b>
+        <span data-id>Unduh di tablet dan izinkan pemasangan dari browser. Kalau Play Protect bertanya, pilih "Install anyway".</span>
+        <span data-en>Download on the tablet and allow installs from the browser. If Play Protect asks, choose "Install anyway".</span></li>
+      <li><b><span data-id>Tampil di atas aplikasi lain</span><span data-en>Display over other apps</span><span class="tag req" data-id>wajib</span><span class="tag req" data-en>required</span></b>
+        <span data-id>Untuk Dock/taskbar, menu bar, Launchpad, dan panel-panel TabStation.</span>
+        <span data-en>For the Dock/taskbar, menu bar, Launchpad and TabStation's panels.</span></li>
+      <li><b><span data-id>Akses penggunaan aplikasi</span><span data-en>Usage access</span><span class="tag req" data-id>wajib</span><span class="tag req" data-en>required</span></b>
+        <span data-id>Untuk mengetahui aplikasi yang sedang terbuka (titik di ikon, nama di menu bar, sembunyi otomatis).</span>
+        <span data-en>To know which apps are open (dots under icons, the menu bar name, auto-hide).</span></li>
+      <li><b><span data-id>Shizuku: pasang, jalankan, beri izin</span><span data-en>Shizuku: install, start, allow</span><span class="tag" data-id>disarankan</span><span class="tag" data-en>recommended</span></b>
+        <span data-id>Dari Play Store atau <a href="https://github.com/RikkaApps/Shizuku/releases" rel="noopener">rilis resmi RikkaApps</a>. Start lewat Wireless debugging, lalu "Beri izin" di Setup. Dibutuhkan untuk tombol jendela, tombol Kembali di Dock, split screen, dan pemberian izin sekali ketuk.</span>
+        <span data-en>From the Play Store or the <a href="https://github.com/RikkaApps/Shizuku/releases" rel="noopener">official RikkaApps release</a>. Start it through Wireless debugging, then "Grant" in Setup. Needed for window buttons, the Back button in the Dock, split screen and one-tap permissions.</span></li>
+      <li><b><span data-id>Ubah pengaturan sistem &amp; navigasi</span><span data-en>Modify system settings &amp; navigation</span><span class="tag" data-id>disarankan</span><span class="tag" data-en>recommended</span></b>
+        <span data-id>Untuk kecerahan, kunci rotasi, timeout layar, dan menukar navigasi Android saat TabStation dinyalakan atau dimatikan.</span>
+        <span data-en>For brightness, rotation lock, screen timeout, and swapping Android navigation when TabStation is switched on or off.</span></li>
+      <li><b><span data-id>Notifikasi &amp; Bluetooth</span><span data-en>Notifications &amp; Bluetooth</span><span class="tag" data-id>disarankan</span><span class="tag" data-en>recommended</span></b>
+        <span data-id>Untuk Pusat Notifikasi, Jangan Ganggu, dan daftar perangkat Bluetooth di menu bar.</span>
+        <span data-en>For the Notification Center, Do Not Disturb, and the Bluetooth device list in the menu bar.</span></li>
+      <li><b><span data-id>Xiaomi: Autostart &amp; baterai</span><span data-en>Xiaomi: Autostart &amp; battery</span><span class="tag" data-id>disarankan</span><span class="tag" data-en>recommended</span></b>
+        <span data-id>Supaya TabStation menyala lagi setelah restart atau update, dan HyperOS tidak menghentikan Dock di latar belakang.</span>
+        <span data-en>So TabStation comes back after a restart or update, and HyperOS doesn't stop the Dock in the background.</span></li>
+    </ol>
+  </section>
+
+  <section id="support">
+    <h2 data-id>Dukung TabStation</h2><h2 data-en>Support TabStation</h2>
+    <div class="support">
+      <p data-id><b>TabStation gratis dan tanpa iklan.</b><br>Kalau aplikasi ini berguna, kamu bisa traktir kopi lewat Saweria untuk membantu pengembangan berikutnya.</p>
+      <p data-en><b>TabStation is free and has no ads.</b><br>If it helps you, you can buy me a coffee on Saweria to support what comes next.</p>
+      <a class="btn" href="https://saweria.co/HelloWorld009" target="_blank" rel="noopener">
+        <span data-id>Dukung via Saweria</span><span data-en>Support on Saweria</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="faq">
+    <h2>FAQ</h2>
+    <details class="group" open>
+      <summary><span data-id>Umum</span><span data-en>General</span><span class="count">· 4</span></summary>
+      <details>
+        <summary><span data-id>Apa itu TabStation dan apa yang dibutuhkan?</span><span data-en>What is TabStation and what do I need?</span></summary>
+        <p data-id>Lapisan desktop untuk tablet Android: Dock, menu bar, taskbar, dan tombol jendela di atas aplikasi biasa. Yang dibutuhkan: Android 10+. Shizuku sangat disarankan untuk fitur jendela dan navigasi. Tanpa root.</p>
+        <p data-en>A desktop layer for Android tablets: Dock, menu bar, taskbar and window buttons on top of regular apps. You need Android 10+. Shizuku is strongly recommended for window and navigation features. No root.</p>
+      </details>
+      <details>
+        <summary><span data-id>Apakah launcher Xiaomi saya diganti?</span><span data-en>Does it replace my Xiaomi launcher?</span></summary>
+        <p data-id>Hanya selama TabStation menyala. Begitu dimatikan dari menu TabStation, launcher Xiaomi kembali jadi Home dan gesture HyperOS aktif lagi. Saat mematikan, kamu juga bisa memilih untuk menutup semua aplikasi.</p>
+        <p data-en>Only while TabStation is on. Switch it off from the TabStation menu and the Xiaomi launcher is Home again with HyperOS gestures back. When switching off you can also choose to close every app.</p>
+      </details>
+      <details>
+        <summary><span data-id>Data apa yang dikumpulkan?</span><span data-en>What data is collected?</span></summary>
+        <p data-id>Tidak ada. TabStation tidak punya server. Internet hanya dipakai widget Cuaca (Open-Meteo) dan Saham (Yahoo Finance), dan bisa dimatikan. Notifikasi, kalender, dan daftar aplikasi hanya ditampilkan di tablet.</p>
+        <p data-en>None. TabStation has no server. Internet is only used by the Weather (Open-Meteo) and Stocks (Yahoo Finance) widgets, which can be switched off. Notifications, calendar and the app list are only shown on the tablet.</p>
+      </details>
+      <details>
+        <summary><span data-id>Kenapa tidak ada di Play Store?</span><span data-en>Why isn't it on the Play Store?</span></summary>
+        <p data-id>TabStation bergantung pada Shizuku dan perintah shell, jadi dibagikan langsung di sini. Setiap rilis ditandatangani dengan kunci yang sama dan disertai SHA-256.</p>
+        <p data-en>It depends on Shizuku and shell commands, so it is distributed here. Every release is signed with the same key and comes with its SHA-256.</p>
+      </details>
+    </details>
+    <details class="group">
+      <summary><span data-id>Penggunaan</span><span data-en>Using it</span><span class="count">· 4</span></summary>
+      <details>
+        <summary><span data-id>Bagaimana keluar dari split screen?</span><span data-en>How do I leave split screen?</span></summary>
+        <p data-id>Ketuk sisi yang ingin ditutup lalu tekan tombol tutup merah di pojoknya; sisi lain langsung jadi layar penuh. Bila satu sisi kosong, panelnya punya tombol "Keluar dari split".</p>
+        <p data-en>Tap the side you want to close and press the red close button in its corner; the other side goes full screen. If a side is empty, its panel has a "Leave split" button.</p>
+      </details>
+      <details>
+        <summary><span data-id>Kenapa game selalu dibuka layar penuh?</span><span data-en>Why do games always open full screen?</span></summary>
+        <p data-id>Di jendela mengambang atau split, posisi sentuhan di banyak game meleset. TabStation membuka game dalam layar penuh; aplikasi lain bisa dipaksa layar penuh lewat menu konteks ikonnya (tahan ikon → "Selalu buka layar penuh").</p>
+        <p data-en>In floating windows or split screen, touches land in the wrong place in many games. TabStation opens games full screen; any other app can be forced full screen from its icon menu (hold the icon → "Always open full screen").</p>
+      </details>
+      <details>
+        <summary><span data-id>Bisakah urutan ikon di Dock/taskbar diatur?</span><span data-en>Can I reorder Dock/taskbar icons?</span></summary>
+        <p data-id>Bisa. Tahan ikon lalu geser ke posisi baru; ikon lain bergeser memberi tempat. Urutannya disimpan dan tidak berubah saat aplikasi dibuka atau ditutup.</p>
+        <p data-en>Yes. Hold an icon and drag it to a new spot; the others move aside. The order is saved and doesn't change as apps open and close.</p>
+      </details>
+      <details>
+        <summary><span data-id>Apakah boros baterai?</span><span data-en>Does it drain the battery?</span></summary>
+        <p data-id>Pemeriksaan jendela hanya rapat saat ada jendela atau split yang terlihat, dan semuanya berhenti saat layar mati. Pemakaian CPU biasanya di bawah 1–2%.</p>
+        <p data-en>Window checks only run quickly while a window or split is visible, and everything stops while the screen is off. CPU use is usually under 1–2%.</p>
+      </details>
+    </details>
+    <details class="group">
+      <summary><span data-id>Masalah</span><span data-en>Troubleshooting</span><span class="count">· 3</span></summary>
+      <details>
+        <summary><span data-id>Tombol jendela atau tombol Kembali tidak muncul</span><span data-en>Window buttons or the Back button are missing</span></summary>
+        <p data-id>Keduanya butuh Shizuku yang sedang berjalan dan sudah mengizinkan TabStation. Buka Panduan setup: langkah yang belum selesai menunjukkan apa yang perlu dilakukan. Tanpa Shizuku, bilah navigasi Android tetap ditampilkan supaya kamu tidak pernah kehilangan navigasi.</p>
+        <p data-en>Both need Shizuku running and allowing TabStation. Open the Setup guide: the unfinished step shows what to do. Without Shizuku, Android's navigation bar stays visible so you never lose navigation.</p>
+      </details>
+      <details>
+        <summary><span data-id>TabStation tidak muncul lagi setelah update/restart</span><span data-en>TabStation doesn't come back after an update or restart</span></summary>
+        <p data-id>Di Xiaomi, izinkan Autostart dan "Tanpa batasan" baterai untuk TabStation (satu ketuk di Setup bila Shizuku aktif). Shizuku juga perlu "Start on boot".</p>
+        <p data-en>On Xiaomi, allow Autostart and "No restrictions" battery for TabStation (one tap in Setup with Shizuku). Shizuku also needs "Start on boot".</p>
+      </details>
+      <details>
+        <summary><span data-id>Update dari versi lama</span><span data-en>Updating from an older version</span></summary>
+        <p data-id>Pasang APK baru di atas yang lama; pengaturan, urutan ikon, dan izin tetap.</p>
+        <p data-en>Install the new APK over the old one; settings, icon order and permissions are kept.</p>
+      </details>
+    </details>
+    <div class="note">
+      <span data-id>Proyek pribadi, tanpa garansi. Tidak berafiliasi dengan Apple, Microsoft, Xiaomi, Google, maupun Shizuku/RikkaApps. Nama macOS dan Windows hanya menjelaskan gaya tampilan.</span>
+      <span data-en>Personal project, no warranty. Not affiliated with Apple, Microsoft, Xiaomi, Google or Shizuku/RikkaApps. macOS and Windows only describe the look.</span>
+    </div>
+    <div class="contact">
+      <p data-id><b>Saran, masukan, atau laporan masalah?</b><br>Kirim email — sertakan versi TabStation, tipe tablet, dan apa yang terjadi.</p>
+      <p data-en><b>Suggestions, feedback or a bug?</b><br>Send an email — include the TabStation version, your tablet and what happened.</p>
+      <a class="mail" href="mailto:masterz1030@gmail.com?subject=TabStation">masterz1030@gmail.com</a>
+    </div>
+  </section>
+
+  <footer>
+    TabStation 2.17.0 · © 2026 OverNightCoder · <a href="https://github.com/Sammy219/tabstation-app/releases">Releases</a> · <a href="https://saweria.co/HelloWorld009" target="_blank" rel="noopener">Saweria</a> · <a href="mailto:masterz1030@gmail.com?subject=TabStation">masterz1030@gmail.com</a>
+  </footer>
+</div>
+<div class="viewer" hidden><img alt=""></div>
+<button type="button" class="to-top" aria-label="Back to top" title="Back to top">↑</button>
+<script>
+  (function () {
+    var top = document.querySelector('.to-top');
+    function onScroll() { top.classList.toggle('show', window.scrollY > 700); }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    top.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  })();
+  (function () {
+    // Tangkapan layar: ketuk untuk melihat besar, ketuk lagi / Esc untuk menutup.
+    var viewer = document.querySelector('.viewer'), img = viewer.querySelector('img');
+    document.querySelectorAll('[data-view]').forEach(function (el) {
+      el.addEventListener('click', function (e) {
+        e.preventDefault();
+        img.src = el.getAttribute('href') || el.getAttribute('src');
+        img.alt = (el.querySelector('img') || el).alt || '';
+        viewer.hidden = false;
+      });
+    });
+    function close() { viewer.hidden = true; img.removeAttribute('src'); }
+    viewer.addEventListener('click', close);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  })();
+  (function () {
+    var root = document.documentElement;
+    function apply(lang) {
+      root.lang = lang;
+      document.querySelectorAll('[data-set-lang]').forEach(function (b) {
+        b.setAttribute('aria-pressed', String(b.getAttribute('data-set-lang') === lang));
+      });
+      try { localStorage.setItem('tabstation-lang', lang); } catch (e) { /* storage unavailable */ }
+    }
+    var saved = null;
+    try { saved = localStorage.getItem('tabstation-lang'); } catch (e) { /* storage unavailable */ }
+    apply(saved || (navigator.language && navigator.language.toLowerCase().indexOf('id') === 0 ? 'id' : 'en'));
+    document.querySelectorAll('[data-set-lang]').forEach(function (b) {
+      b.addEventListener('click', function () { apply(b.getAttribute('data-set-lang')); });
+    });
+  })();
+</script>
+</body>
+</html>
