@@ -123,6 +123,16 @@
 .keys td:first-child { white-space: nowrap; color: inherit; }
 kbd { display: inline-block; min-width: 1.6em; padding: 2px 7px; border: 1px solid #3a4c74; border-bottom-width: 2px; border-radius: 6px; background: #16203a; font: 12.5px ui-monospace, SFMono-Regular, Menlo, monospace; text-align: center; }
 .lead { color: var(--muted); margin: -4px 0 14px; }
+    /* onc-fab: tombol melayang ke landing OverNightCoder (kiri bawah; kanan bawah dipakai .to-top) */
+    .onc-fab { position: fixed; left: max(16px, env(safe-area-inset-left)); bottom: max(20px, env(safe-area-inset-bottom)); z-index: 9;
+      display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 16px 0 6px; border-radius: 999px;
+      background: rgba(12,18,34,.88); border: 1px solid var(--line); color: var(--text); text-decoration: none; font-size: 14px; font-weight: 600;
+      box-shadow: 0 10px 30px rgba(0,0,0,.45); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: transform .15s, border-color .15s; }
+    .onc-fab:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .onc-fab:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .onc-fab img { width: 34px; height: 34px; border-radius: 10px; display: block; }
+    @media (max-width: 560px) { .onc-fab { width: 46px; padding: 0; justify-content: center; } .onc-fab .t { display: none; } }
+    @media print { .onc-fab { display: none; } }
 </style>
 <script data-goatcounter="https://overnightcoder.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
@@ -455,5 +465,11 @@ kbd { display: inline-block; min-width: 1.6em; padding: 2px 7px; border: 1px sol
     });
   })();
   </script>
+  <!-- onc-fab -->
+  <a class="onc-fab" href="https://overnightcoder219.github.io/" aria-label="OverNightCoder Apps: lihat semua aplikasi" title="OverNightCoder Apps">
+    <img src="https://overnightcoder219.github.io/assets/overnightcoder-logo.svg" alt="" width="34" height="34">
+    <span class="t">OverNightCoder <span data-id>Apps</span><span data-en>Apps</span></span>
+  </a>
+  <!-- /onc-fab -->
 </body>
 </html>
