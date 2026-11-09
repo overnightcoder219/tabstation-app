@@ -1,6 +1,17 @@
 {
   "releases": [
     {
+      "tag_name": "v2.18.4",
+      "published_at": "2026-11-09T19:56:10Z",
+      "body": "## TabStation 2.18.4\n\n- Turning on TabStation now asks with one short message: the extra features that are on and about how much memory they use, with \"Turn on\" and \"Review first\" (opens Extra features in Settings). The old dialog repeated every switch and the language choice from Settings.\n- Fixed: after an in-app update, \"Open\" could show Settings instead of going back to the desktop.\n- From 2.18.0: new setup guide, new Settings with a sidebar, in-app updates, splash screen, \"Report a bug\", Windows 11 style menus and many fixes. See the 2.18.0 notes for the full list.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. From 2.18.0 on, TabStation updates itself from Settings → Version & updates.\n",
+      "assets": [
+        {
+          "name": "TabStation-2.18.4.apk",
+          "download_count": 0
+        }
+      ]
+    },
+    {
       "tag_name": "v2.18.3",
       "published_at": "2026-11-09T19:47:30Z",
       "body": "## TabStation 2.18.3\n\n- After an in-app update, \"Open\" in the installer now takes you straight back to the desktop (with the \"Starting…\" screen) when TabStation was on, and a message confirms the new version. Before, Settings opened first and the desktop jumped back a few seconds later.\n- From 2.18.0: new setup guide, new Settings with a sidebar, in-app updates, splash screen, \"Report a bug\", Windows 11 style menus and many fixes. See the 2.18.0 notes for the full list.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. From 2.18.0 on, TabStation updates itself from Settings → Version & updates.\n",
@@ -18,18 +29,18 @@
       "assets": [
         {
           "name": "TabStation-2.18.2.apk",
-          "download_count": 0
+          "download_count": 1
         }
       ]
     },
     {
       "tag_name": "v2.18.1",
       "published_at": "2026-11-09T19:39:41Z",
-      "body": "## TabStation 2.18.1\n\n- Fixed: the \"Check for updates\" button in Settings could stay on \"Checking…\" after the automatic check had finished.\n- From 2.18.0: new setup guide, new Settings with a sidebar, in-app updates, splash screen, \"Report a bug\", Windows 11 style menus and many fixes. See the 2.18.0 notes for the full list.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. From 2.18.0 on, TabStation updates itself from Settings → Version & updates.\n",
+      "body": "",
       "assets": [
         {
           "name": "TabStation-2.18.1.apk",
-          "download_count": 0
+          "download_count": 2
         }
       ]
     },
@@ -40,7 +51,7 @@
       "assets": [
         {
           "name": "TabStation-2.18.0.apk",
-          "download_count": 0
+          "download_count": 3
         }
       ]
     },
