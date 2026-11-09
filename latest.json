@@ -1,7 +1,7 @@
 {
-  "versionName": "2.18.1",
-  "versionCode": 154,
-  "apk": "https://github.com/overnightcoder219/tabstation-app/releases/download/v2.18.1/TabStation-2.18.1.apk",
-  "sha256": "74e5c43024039c7ba273f67f6c5fc9d65d6e18d1024d6e086a7081b63777cf48",
-  "notes": "• Fixed: the \"Check for updates\" button in Settings could stay on \"Checking…\" after the automatic check had finished.\n• From 2.18.0: new setup guide, new Settings with a sidebar, in-app updates, splash screen, \"Report a bug\", Windows 11 style menus and many fixes. See the 2.18.0 notes for the full list.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. From 2.18.0 on, TabStation updates itself from Settings → Version & updates."
+  "versionName": "2.18.2",
+  "versionCode": 155,
+  "apk": "https://github.com/overnightcoder219/tabstation-app/releases/download/v2.18.2/TabStation-2.18.2.apk",
+  "sha256": "7e5fc58bd0fec2cf366e4c6e25109af95fe3e15d4edc3d074f84a91993c27611",
+  "notes": "• Fixed: after an update the Dock stayed off and Android's 3-button navigation bar came back until Home was pressed. Opening TabStation (for example \"Open\" in the installer after updating) now brings the Dock back right away.\n• From 2.18.0: new setup guide, new Settings with a sidebar, in-app updates, splash screen, \"Report a bug\", Windows 11 style menus and many fixes. See the 2.18.0 notes for the full list.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. From 2.18.0 on, TabStation updates itself from Settings → Version & updates."
 }
