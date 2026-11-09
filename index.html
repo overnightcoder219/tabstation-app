@@ -60,6 +60,7 @@
     .btn.ghost:hover { border-color: var(--accent); }
     .meta { color: var(--muted); font-size: 13px; margin-top: 14px; word-break: break-all; }
     .meta code { color: var(--text); }
+    .meta .dl .n { color: var(--text); font-weight: 700; }
     .shot-hero { margin-top: 28px; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 20px 60px rgba(0,0,0,.45); }
     .shot-hero img { display: block; width: 100%; height: auto; }
     section { padding: 28px 0; border-top: 1px solid var(--line); }
@@ -151,7 +152,7 @@ kbd { display: inline-block; min-width: 1.6em; padding: 2px 7px; border: 1px sol
         <span data-id>Cara setup</span><span data-en>How to set up</span>
       </a>
     </div>
-    <div class="meta">Android 10+ · <span data-id>untuk tablet, diuji di Xiaomi Pad (HyperOS)</span><span data-en>for tablets, tested on Xiaomi Pad (HyperOS)</span> · <span data-id>disarankan</span><span data-en>recommended</span> Shizuku · SHA-256 <code>06c7d695d0ed6682f1b15ffa93d9df1b6bd2470c8df75131cc27f2d82211026b</code></div>
+    <div class="meta"><span class="dl" data-dl="overnightcoder219/tabstation-app" hidden><b class="n"></b> <span data-id>unduhan</span><span data-en>downloads</span> · </span>Android 10+ · <span data-id>untuk tablet, diuji di Xiaomi Pad (HyperOS)</span><span data-en>for tablets, tested on Xiaomi Pad (HyperOS)</span> · <span data-id>disarankan</span><span data-en>recommended</span> Shizuku · SHA-256 <code>06c7d695d0ed6682f1b15ffa93d9df1b6bd2470c8df75131cc27f2d82211026b</code></div>
     <div class="shot-hero">
       <img src="screenshots/desktop.jpg" width="1600" height="1068" alt="Desktop TabStation: menu bar, widget, dan Dock" data-view>
     </div>
@@ -436,5 +437,22 @@ kbd { display: inline-block; min-width: 1.6em; padding: 2px 7px; border: 1px sol
     });
   })();
 </script>
+  <script>
+  (function () {
+    // Jumlah unduhan APK dari rilis GitHub (API publik, dibaca oleh browser pengunjung). Gagal/limit -> lencana tetap tersembunyi.
+    document.querySelectorAll('[data-dl]').forEach(function (el) {
+      fetch('https://api.github.com/repos/' + el.getAttribute('data-dl') + '/releases?per_page=100', { headers: { Accept: 'application/vnd.github+json' } })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (rels) {
+          var n = 0;
+          rels.forEach(function (r) { (r.assets || []).forEach(function (a) { if (/\.apk$/i.test(a.name)) n += a.download_count || 0; }); });
+          if (n <= 0) return;
+          el.querySelector('.n').textContent = n.toLocaleString();
+          el.hidden = false;
+        })
+        .catch(function () { /* offline atau limit API: biarkan tersembunyi */ });
+    });
+  })();
+  </script>
 </body>
 </html>
