@@ -1,0 +1,49 @@
+# Salinan sumber workflow yang dipasang di tiap repo unduh publik sebagai .github/workflows/releases-json.yml
+# (omosync/omosync.github.io, overnightcoder219/{systemmonitor,tabstation,chargecall}-app). Pasang/perbarui:
+#   ./landing/install-releases-workflow.sh
+#
+# Menulis releases.json (jumlah unduhan APK + 3 catatan rilis terakhir) di root situs, supaya halaman tidak memanggil
+# API GitHub dari browser pengunjung (batas 60 permintaan/jam per IP). Hanya memakai gh + jq bawaan runner.
+name: releases.json
+on:
+  release:
+    types: [published, edited, deleted, unpublished]
+  schedule:
+    - cron: "23 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: releases-json
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Tulis releases.json
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          # Draft dibuang (token workflow bisa melihatnya); isi catatan rilis hanya sebagai data JSON, tidak pernah
+          # melewati shell. Hanya aset .apk yang dihitung; body hanya untuk 3 rilis terbaru.
+          gh api --paginate "repos/$REPO/releases?per_page=100" --jq '.[]' | jq -s '
+            map(select(.draft | not)) | sort_by(.published_at) | reverse
+            | { releases: (to_entries | map(.key as $i | .value | {
+                  tag_name, published_at,
+                  body: (if $i < 3 then (.body // "") else "" end),
+                  assets: [ .assets[] | select(.name | test("\\.apk$"; "i")) | { name, download_count } ]
+                })) }' > releases.json
+          jq -e '.releases | type == "array"' releases.json > /dev/null
+          new="$(base64 -w0 releases.json)"
+          sha="$(gh api "repos/$REPO/contents/releases.json" --jq .sha 2>/dev/null || true)"
+          old="$(gh api "repos/$REPO/contents/releases.json" --jq .content 2>/dev/null | tr -d '\n' || true)"
+          if [ "$old" = "$new" ]; then echo "tidak berubah"; exit 0; fi
+          args=(-X PUT "repos/$REPO/contents/releases.json" -f message="releases.json: perbarui data rilis" -f content="$new")
+          [ -n "$sha" ] && args+=(-f sha="$sha")
+          gh api "${args[@]}" --jq .commit.sha
+          # Pastikan GitHub Pages ikut dibangun ulang (commit dari GITHUB_TOKEN tidak selalu memicunya).
+          gh api -X POST "repos/$REPO/pages/builds" --jq .status || echo "permintaan build Pages gagal (akan ikut build berikutnya)"
