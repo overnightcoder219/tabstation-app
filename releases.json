@@ -1,13 +1,24 @@
 {
   "releases": [
     {
+      "tag_name": "v2.18.5",
+      "published_at": "2026-11-09T20:27:32Z",
+      "body": "## TabStation 2.18.5\n\n- **TabStation now really stops when you shut it down.** Before, it kept running in the background and held about 100 MB of memory. It now ends after shutting down and starts fresh the next time you open it. With Shizuku, notification access is paused while TabStation is off and restored automatically when you turn it on.\n- **Splash screen** now shows every time TabStation starts fresh from its icon, not only on the very first launch.\n- **Faster after a restart:** Android's navigation bar is hidden as soon as Shizuku is ready (about 20 seconds after the tablet starts, instead of 30–40).\n- The \"Turn on TabStation?\" message is clearer, and its checkbox is now \"Don't show again today\" (it comes back the next day).\n- From 2.18.0: new setup guide, new Settings with a sidebar, in-app updates, \"Report a bug\", Windows 11 style menus and many fixes. See the 2.18.0 notes for the full list.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. From 2.18.0 on, TabStation updates itself from Settings → Version & updates.\n",
+      "assets": [
+        {
+          "name": "TabStation-2.18.5.apk",
+          "download_count": 0
+        }
+      ]
+    },
+    {
       "tag_name": "v2.18.4",
       "published_at": "2026-11-09T19:56:10Z",
       "body": "## TabStation 2.18.4\n\n- Turning on TabStation now asks with one short message: the extra features that are on and about how much memory they use, with \"Turn on\" and \"Review first\" (opens Extra features in Settings). The old dialog repeated every switch and the language choice from Settings.\n- Fixed: after an in-app update, \"Open\" could show Settings instead of going back to the desktop.\n- From 2.18.0: new setup guide, new Settings with a sidebar, in-app updates, splash screen, \"Report a bug\", Windows 11 style menus and many fixes. See the 2.18.0 notes for the full list.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. From 2.18.0 on, TabStation updates itself from Settings → Version & updates.\n",
       "assets": [
         {
           "name": "TabStation-2.18.4.apk",
-          "download_count": 0
+          "download_count": 2
         }
       ]
     },
@@ -18,18 +29,18 @@
       "assets": [
         {
           "name": "TabStation-2.18.3.apk",
-          "download_count": 0
+          "download_count": 2
         }
       ]
     },
     {
       "tag_name": "v2.18.2",
       "published_at": "2026-11-09T19:43:00Z",
-      "body": "## TabStation 2.18.2\n\n- Fixed: after an update the Dock stayed off and Android's 3-button navigation bar came back until Home was pressed. Opening TabStation (for example \"Open\" in the installer after updating) now brings the Dock back right away.\n- From 2.18.0: new setup guide, new Settings with a sidebar, in-app updates, splash screen, \"Report a bug\", Windows 11 style menus and many fixes. See the 2.18.0 notes for the full list.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. From 2.18.0 on, TabStation updates itself from Settings → Version & updates.\n",
+      "body": "",
       "assets": [
         {
           "name": "TabStation-2.18.2.apk",
-          "download_count": 1
+          "download_count": 2
         }
       ]
     },
