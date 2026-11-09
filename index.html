@@ -133,13 +133,53 @@ kbd { display: inline-block; min-width: 1.6em; padding: 2px 7px; border: 1px sol
     .onc-fab img { width: 34px; height: 34px; border-radius: 10px; display: block; }
     @media (max-width: 560px) { .onc-fab { width: 46px; padding: 0; justify-content: center; } .onc-fab .t { display: none; } }
     @media print { .onc-fab { display: none; } }
+    /* onc-extras: catatan rilis, bilah unduh (HP), kode QR (desktop), aplikasi lain */
+    .rel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 4px 18px 6px; margin-bottom: 10px; }
+    .rel > summary, .rel-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; font-weight: 700; padding: 13px 28px 11px 0; }
+    .rel-head .ver, .rel > summary .ver { font-size: 17px; }
+    .rel .date { color: var(--muted); font-size: 13px; font-weight: 400; }
+    .rel .badge { font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 999px; background: var(--grad); color: var(--accent-ink); }
+    .rel-body { color: var(--muted); font-size: 14.5px; line-height: 1.6; padding-bottom: 10px; }
+    .rel-body h4 { color: var(--text); font-size: 14px; margin: 12px 0 4px; }
+    .rel-body p { margin: 6px 0; }
+    .rel-body ul { margin: 4px 0 8px; padding-left: 18px; }
+    .rel-body li { margin: 3px 0; }
+    .rel-body b { color: var(--text); }
+    .rel-body code { color: var(--text); background: var(--surface-2); padding: 0 5px; border-radius: 5px; font-size: 13px; }
+    .rel-more { font-size: 14px; }
+    details.rel { padding: 0 18px; }
+    details.rel[open] { border-color: var(--line); }
+    .qr-hint { display: none; }
+    @media (min-width: 900px) and (hover: hover) {
+      .qr-hint { display: inline-flex; align-items: center; gap: 14px; margin-top: 16px; padding: 10px 16px 10px 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+      .qr-hint svg { width: 92px; height: 92px; display: block; border-radius: 8px; flex: none; }
+      .qr-hint p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.45; max-width: 230px; }
+      .qr-hint b { color: var(--text); display: block; font-size: 15px; }
+    }
+    .dl-bar { display: none; }
+    @media (max-width: 720px) {
+      .dl-bar { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 8; padding: 10px 16px max(10px, env(safe-area-inset-bottom)); background: rgba(9,14,28,.94); border-top: 1px solid var(--line); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transform: translateY(110%); transition: transform .25s; }
+      .dl-bar .btn { display: block; text-align: center; padding: 12px 16px; margin-left: 58px; }
+      body.dl-bar-on .dl-bar { transform: none; }
+      body.dl-bar-on .onc-fab { bottom: calc(max(10px, env(safe-area-inset-bottom)) + 9px); }
+      body.dl-bar-on .to-top { bottom: 84px; }
+      body.dl-bar-on footer { padding-bottom: 110px; }
+    }
+    @media print { .dl-bar, .qr-hint { display: none !important; } }
+    .more-apps { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+    .more-apps a { display: flex; gap: 14px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px; color: var(--text); text-decoration: none; transition: border-color .15s, transform .15s; }
+    .more-apps a:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .more-apps img { width: 52px; height: 52px; border-radius: 13px; flex: none; }
+    .more-apps b { display: block; font-size: 16px; }
+    .more-apps span { color: var(--muted); font-size: 13.5px; line-height: 1.45; }
+    /* /onc-extras */
 </style>
 <script data-goatcounter="https://overnightcoder.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
-    <div class="brand"><img src="logo.svg" alt=""> TabStation</div>
+    <div class="brand"><img src="logo.svg" alt="" width="34" height="34"> TabStation</div>
     <div class="lang" role="group" aria-label="Language">
       <button type="button" data-set-lang="id" aria-pressed="true">ID</button>
       <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
@@ -147,7 +187,7 @@ kbd { display: inline-block; min-width: 1.6em; padding: 2px 7px; border: 1px sol
   </header>
 
   <div class="hero">
-    <img class="mark" src="logo.svg" alt="">
+    <img class="mark" src="logo.svg" alt="" width="88" height="88">
     <h1 data-id>Tablet Android jadi <span class="grad-text">desktop ala macOS atau Windows</span></h1>
     <h1 data-en>Turn an Android tablet into <span class="grad-text">a macOS- or Windows-style desktop</span></h1>
     <p data-id>Dock dan menu bar, atau taskbar dan Start. Jendela aplikasi dengan tombol tutup, minimize, dan maximize, Launchpad, Control Center, dan split screen yang mudah ditutup. Matikan kapan saja dan tablet kembali ke tampilan bawaan. Tanpa root. Internet hanya untuk widget Cuaca dan Saham.</p>
@@ -164,6 +204,9 @@ kbd { display: inline-block; min-width: 1.6em; padding: 2px 7px; border: 1px sol
       </a>
     </div>
     <div class="meta"><span class="dl" data-dl="overnightcoder219/tabstation-app" hidden><b class="n"></b> <span data-id>unduhan</span><span data-en>downloads</span> · </span>Android 10+ · <span data-id>untuk tablet, diuji di Xiaomi Pad (HyperOS)</span><span data-en>for tablets, tested on Xiaomi Pad (HyperOS)</span> · <span data-id>disarankan</span><span data-en>recommended</span> Shizuku · SHA-256 <code>06c7d695d0ed6682f1b15ffa93d9df1b6bd2470c8df75131cc27f2d82211026b</code></div>
+    <!-- onc-qr -->
+    <div class="qr-hint"><svg role="img" aria-label="QR" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 35" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h35v35H0z"/><path stroke="#0b1020" d="M1 1.5h7m2 0h1m1 0h1m4 0h1m2 0h2m2 0h1m2 0h7M1 2.5h1m5 0h1m2 0h1m2 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h1m5 0h3m3 0h4m2 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h2m1 0h2m2 0h1m2 0h1m3 0h3m1 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h4m1 0h4m3 0h1m2 0h1m2 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h1m2 0h1m5 0h3m1 0h1m4 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h2m1 0h1m4 0h1m1 0h5m1 0h1M1 9.5h1m1 0h5m2 0h1m1 0h4m1 0h4m2 0h3m1 0h5M1 10.5h3m1 0h1m4 0h1m2 0h3m1 0h2m1 0h2m2 0h1m2 0h2m1 0h2m1 0h1M1 11.5h2m1 0h6m2 0h1m1 0h5m4 0h1m1 0h1m3 0h1m1 0h2M10 12.5h1m1 0h1m1 0h1m1 0h1m1 0h2m1 0h2m1 0h2m1 0h1m1 0h3m1 0h1M1 13.5h5m1 0h1m3 0h3m1 0h1m1 0h1m7 0h2m1 0h3m1 0h2M1 14.5h3m1 0h1m2 0h3m2 0h1m2 0h1m2 0h1m2 0h1m1 0h1m1 0h2m4 0h2M2 15.5h1m4 0h1m3 0h2m1 0h1m1 0h4m1 0h1m1 0h1m1 0h3m2 0h3M2 16.5h2m2 0h1m1 0h5m1 0h3m2 0h5m2 0h3m1 0h2M1 17.5h1m1 0h1m2 0h5m1 0h1m1 0h3m1 0h3m2 0h1m2 0h1m1 0h2m3 0h1M2 18.5h3m1 0h1m1 0h1m2 0h3m1 0h1m1 0h1m2 0h2m2 0h1m2 0h2m1 0h2m1 0h1M1 19.5h4m2 0h5m1 0h2m1 0h2m1 0h1m1 0h3m4 0h2m1 0h1M2 20.5h1m1 0h1m3 0h2m2 0h1m4 0h1m2 0h4m2 0h6m1 0h1M4 21.5h2m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m2 0h2m2 0h1m2 0h1m1 0h3M1 22.5h1m9 0h2m1 0h4m2 0h1m3 0h1m1 0h2m2 0h1m2 0h1M1 23.5h1m3 0h1m1 0h1m1 0h1m4 0h1m4 0h1m2 0h1m3 0h3m1 0h1m1 0h1M1 24.5h1m1 0h1m8 0h2m3 0h1m4 0h1m2 0h3m3 0h3M1 25.5h1m2 0h4m1 0h6m3 0h2m3 0h1m1 0h5M9 26.5h3m2 0h1m2 0h2m1 0h4m1 0h1m3 0h1m1 0h1m1 0h1M1 27.5h7m2 0h2m1 0h4m1 0h1m2 0h2m1 0h2m1 0h1m1 0h1m1 0h2M1 28.5h1m5 0h1m1 0h1m1 0h1m5 0h4m1 0h4m3 0h4M1 29.5h1m1 0h3m1 0h1m1 0h1m1 0h2m4 0h1m3 0h1m1 0h1m1 0h6m1 0h1M1 30.5h1m1 0h3m1 0h1m1 0h1m3 0h1m2 0h1m1 0h6m2 0h1m2 0h2m1 0h2M1 31.5h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h1m1 0h2m1 0h1m2 0h7m1 0h1M1 32.5h1m5 0h1m2 0h7m5 0h1m3 0h1m2 0h3M1 33.5h7m1 0h1m4 0h3m1 0h2m3 0h3m2 0h1m1 0h1m1 0h1"/></svg><p data-id><b>Pasang di HP atau tablet?</b>Pindai kode ini dengan kamera untuk membuka halaman ini di perangkat Android.</p><p data-en><b>Installing on a phone or tablet?</b>Scan this code with the camera to open this page on your Android device.</p></div>
+    <!-- /onc-qr -->
     <div class="shot-hero">
       <img src="screenshots/desktop.jpg" width="1600" height="1068" alt="Desktop TabStation: menu bar, widget, dan Dock" data-view>
     </div>
@@ -172,17 +215,17 @@ kbd { display: inline-block; min-width: 1.6em; padding: 2px 7px; border: 1px sol
   <section>
     <h2 data-id>Tangkapan layar</h2><h2 data-en>Screenshots</h2>
     <div class="gallery">
-      <figure><a href="screenshots/desktop.jpg" data-view><img src="screenshots/desktop.jpg" loading="lazy" alt="Desktop, widget, dan Dock"></a>
+      <figure><a href="screenshots/desktop.jpg" data-view><img src="screenshots/desktop.jpg" loading="lazy" alt="Desktop, widget, dan Dock" width="1600" height="1068"></a>
         <figcaption><b><span data-id>Desktop &amp; widget</span><span data-en>Desktop &amp; widgets</span></b><span data-id>Menu bar dengan RAM, CPU, Wi-Fi, Bluetooth, dan jam; widget Kalender, Cuaca, Jam Dunia, dan Saham; Dock berisi aplikasi favorit.</span><span data-en>A menu bar with RAM, CPU, Wi-Fi, Bluetooth and clock; Calendar, Weather, World Clock and Stocks widgets; the Dock holds favourite apps.</span></figcaption></figure>
-      <figure><a href="screenshots/widgets.jpg" data-view><img src="screenshots/widgets.jpg" loading="lazy" alt="Mode Edit Widget"></a>
+      <figure><a href="screenshots/widgets.jpg" data-view><img src="screenshots/widgets.jpg" loading="lazy" alt="Mode Edit Widget" width="1600" height="1068"></a>
         <figcaption><b><span data-id>Edit Widget</span><span data-en>Edit Widgets</span></b><span data-id>Geser untuk memindah, − untuk menghapus, galeri di bawah untuk menambah.</span><span data-en>Drag to move, − to remove, the gallery below to add.</span></figcaption></figure>
-      <figure><a href="screenshots/control-center.jpg" data-view><img src="screenshots/control-center.jpg" loading="lazy" alt="Control Center"></a>
+      <figure><a href="screenshots/control-center.jpg" data-view><img src="screenshots/control-center.jpg" loading="lazy" alt="Control Center" width="1600" height="1068"></a>
         <figcaption><b>Control Center</b><span data-id>Gaya Liquid Glass: Wi-Fi, Bluetooth, kunci rotasi, Fokus, kecerahan, suara, dan baterai.</span><span data-en>Liquid Glass style: Wi-Fi, Bluetooth, rotation lock, Focus, brightness, sound and battery.</span></figcaption></figure>
-      <figure><a href="screenshots/spotlight.jpg" data-view><img src="screenshots/spotlight.jpg" loading="lazy" alt="Spotlight"></a>
+      <figure><a href="screenshots/spotlight.jpg" data-view><img src="screenshots/spotlight.jpg" loading="lazy" alt="Spotlight" width="1600" height="1068"></a>
         <figcaption><b>Spotlight</b><span data-id>Cari aplikasi dan pengaturan, hitung cepat, atau cari di web (Alt + Spasi).</span><span data-en>Find apps and settings, do quick maths or search the web (Alt + Space).</span></figcaption></figure>
-      <figure><a href="screenshots/launchpad.jpg" data-view><img src="screenshots/launchpad.jpg" loading="lazy" alt="Launchpad"></a>
+      <figure><a href="screenshots/launchpad.jpg" data-view><img src="screenshots/launchpad.jpg" loading="lazy" alt="Launchpad" width="1600" height="1068"></a>
         <figcaption><b>Launchpad</b><span data-id>Semua aplikasi dengan pencarian, dibuka dengan animasi blur.</span><span data-en>Every app with search, opened with a blur animation.</span></figcaption></figure>
-      <figure><a href="screenshots/split.jpg" data-view><img src="screenshots/split.jpg" loading="lazy" alt="Panel split screen"></a>
+      <figure><a href="screenshots/split.jpg" data-view><img src="screenshots/split.jpg" loading="lazy" alt="Panel split screen" width="1200" height="981"></a>
         <figcaption><b>Split screen</b><span data-id>Sisi kosong menampilkan saran aplikasi dan tombol "Keluar dari split".</span><span data-en>An empty side suggests apps and offers "Leave split".</span></figcaption></figure>
     </div>
   </section>
@@ -305,6 +348,21 @@ kbd { display: inline-block; min-width: 1.6em; padding: 2px 7px; border: 1px sol
     </div>
   </section>
 
+
+
+
+
+
+
+  <!-- onc-whatsnew -->
+  <section id="whats-new">
+    <h2 data-id>Yang baru</h2><h2 data-en>What's new</h2>
+    <div class="rel-list" data-rel="overnightcoder219/tabstation-app">
+      <p class="rel-more"><a href="https://github.com/overnightcoder219/tabstation-app/releases"><span data-id>Lihat catatan rilis di GitHub</span><span data-en>See the release notes on GitHub</span></a></p>
+    </div>
+  </section>
+  <!-- /onc-whatsnew -->
+
   <section class="faq">
     <h2>FAQ</h2>
     <details class="group" open>
@@ -402,6 +460,23 @@ kbd { display: inline-block; min-width: 1.6em; padding: 2px 7px; border: 1px sol
     </div>
   </section>
 
+
+
+
+
+
+
+  <!-- onc-more -->
+  <section id="more-apps">
+    <h2 data-id>Aplikasi lain dari OverNightCoder</h2><h2 data-en>More apps by OverNightCoder</h2>
+    <div class="more-apps">
+      <a href="https://omosync.github.io/" data-goatcounter-click="tabstation-to-omosync"><img src="https://overnightcoder219.github.io/assets/omosync-logo.webp" alt="" width="52" height="52" loading="lazy"><div><b>OmoSync</b><span data-id>Android Auto di layar cockpit OMOWAY OMO X.</span><span data-en>Android Auto on the OMOWAY OMO X cockpit screen.</span></div></a>
+      <a href="https://overnightcoder219.github.io/systemmonitor-app/" data-goatcounter-click="tabstation-to-systemmonitor"><img src="https://overnightcoder219.github.io/assets/systemmonitor-logo.svg" alt="" width="52" height="52" loading="lazy"><div><b>SystemMonitor</b><span data-id>Task Manager ala Windows: CPU, RAM, GPU per aplikasi.</span><span data-en>A Windows-style Task Manager: CPU, RAM, GPU per app.</span></div></a>
+      <a href="https://overnightcoder219.github.io/chargecall-app/" data-goatcounter-click="tabstation-to-chargecall"><img src="https://overnightcoder219.github.io/assets/chargecall-logo.svg" alt="" width="52" height="52" loading="lazy"><div><b>ChargeCall</b><span data-id>Peringatan baterai bersuara, tanpa iklan.</span><span data-en>Talking battery alerts, no ads.</span></div></a>
+    </div>
+  </section>
+  <!-- /onc-more -->
+
   <footer>
     TabStation 2.17.1 · © 2026 OverNightCoder · <a href="https://github.com/overnightcoder219/tabstation-app/releases" data-goatcounter-click="tabstation-footer-releases">Releases</a> · <a href="https://saweria.co/HelloWorld009" target="_blank" rel="noopener">Saweria</a> · <a href="mailto:masterz1030@gmail.com?subject=TabStation">masterz1030@gmail.com</a>
   </footer>
@@ -448,12 +523,37 @@ kbd { display: inline-block; min-width: 1.6em; padding: 2px 7px; border: 1px sol
     });
   })();
 </script>
-  <script>
+  <!-- onc-gh -->
+<script>
+  // Rilis GitHub lewat API publik (60 permintaan/jam per IP, sering dibagi banyak pengguna lewat CGNAT):
+  // satu permintaan per repo per halaman, disimpan 30 menit; bila API menolak, pakai simpanan lama.
+  window.oncReleases = (function () {
+    var mem = {}, TTL = 30 * 60 * 1000;
+    function slim(rels) {
+      return rels.filter(function (r) { return !r.draft; }).map(function (r) {
+        return { tag_name: r.tag_name, published_at: r.published_at, body: r.body || '',
+          assets: (r.assets || []).map(function (a) { return { name: a.name, download_count: a.download_count || 0 }; }) };
+      });
+    }
+    function read(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } }
+    function write(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { /* storage penuh/tidak ada */ } }
+    return function (repo) {
+      if (mem[repo]) return mem[repo];
+      var k = 'onc-rel:' + repo, c = read(k);
+      if (c && Array.isArray(c.d) && Date.now() - c.t < TTL) return (mem[repo] = Promise.resolve(c.d));
+      return (mem[repo] = fetch('https://api.github.com/repos/' + repo + '/releases?per_page=100', { headers: { Accept: 'application/vnd.github+json' } })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (rels) { var d = slim(Array.isArray(rels) ? rels : []); write(k, { t: Date.now(), d: d }); return d; })
+        .catch(function (e) { if (c && Array.isArray(c.d)) return c.d; throw e; }));
+    };
+  })();
+</script>
+<!-- /onc-gh -->
+<script>
   (function () {
     // Jumlah unduhan APK dari rilis GitHub (API publik, dibaca oleh browser pengunjung). Gagal/limit -> lencana tetap tersembunyi.
     document.querySelectorAll('[data-dl]').forEach(function (el) {
-      fetch('https://api.github.com/repos/' + el.getAttribute('data-dl') + '/releases?per_page=100', { headers: { Accept: 'application/vnd.github+json' } })
-        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      oncReleases(el.getAttribute('data-dl'))
         .then(function (rels) {
           var n = 0;
           rels.forEach(function (r) { (r.assets || []).forEach(function (a) { if (/\.apk$/i.test(a.name)) n += a.download_count || 0; }); });
@@ -465,6 +565,79 @@ kbd { display: inline-block; min-width: 1.6em; padding: 2px 7px; border: 1px sol
     });
   })();
   </script>
+<!-- onc-extras-js -->
+<div class="dl-bar" aria-hidden="true"></div>
+<script>
+  (function () {
+    // Bilah unduh di HP: salinan tombol unduh hero, muncul setelah tombol aslinya lewat dari layar.
+    var hero = document.querySelector('.hero .cta'), bar = document.querySelector('.dl-bar');
+    var src = hero && hero.querySelector('a.btn');
+    if (!src || !bar || !('IntersectionObserver' in window)) return;
+    var b = src.cloneNode(true);
+    b.tabIndex = -1;
+    // klik dari bilah ini dihitung terpisah di GoatCounter
+    if (b.getAttribute('data-goatcounter-click')) b.setAttribute('data-goatcounter-click', b.getAttribute('data-goatcounter-click') + '-sticky');
+    bar.appendChild(b);
+    new IntersectionObserver(function (es) {
+      var e = es[0], on = !e.isIntersecting && e.boundingClientRect.top < 0;
+      document.body.classList.toggle('dl-bar-on', on);
+      bar.setAttribute('aria-hidden', String(!on));
+      b.tabIndex = on ? 0 : -1;
+    }).observe(hero);
+  })();
+  (function () {
+    // "Yang baru": 3 rilis terakhir dari GitHub (API publik). Gagal/limit -> tautan ke halaman rilis tetap tampil.
+    var box = document.querySelector('[data-rel]');
+    if (!box) return;
+    var repo = box.getAttribute('data-rel');
+    function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+    function inline(s) {
+      return esc(s)
+        .replace(/`([^`]+)`/g, '<code>$1</code>')
+        .replace(/\*\*([^*]+)\*\*/g, '<b>$1</b>')
+        .replace(/(^|[\s(])\*([^*\s][^*]*)\*/g, '$1<i>$2</i>')
+        .replace(/\[([^\]]+)\]\((https:\/\/[^)\s]+)\)/g, '<a href="$2" rel="noopener">$1</a>');
+    }
+    function md(text) {
+      var out = [], list = false, para = [];
+      function flush() { if (para.length) { out.push('<p>' + inline(para.join(' ')) + '</p>'); para = []; } }
+      function endList() { if (list) { out.push('</ul>'); list = false; } }
+      text.replace(/\r/g, '').split('\n').forEach(function (raw, i) {
+        var l = raw.trim(), m;
+        if (i === 0 && /^#{1,3}\s/.test(l)) return;          // judul rilis sudah ditampilkan sendiri
+        if (/^\|/.test(l) || /^-{3,}$/.test(l)) return;       // tabel/garis: lihat catatan lengkap
+        if (!l) { flush(); endList(); return; }
+        if ((m = l.match(/^#{1,6}\s+(.*)$/))) { flush(); endList(); out.push('<h4>' + inline(m[1]) + '</h4>'); return; }
+        if ((m = l.match(/^[-*]\s+(.*)$/))) { flush(); if (!list) { out.push('<ul>'); list = true; } out.push('<li>' + inline(m[1]) + '</li>'); return; }
+        if ((m = l.match(/^\*\*([^*]+)\*\*$/))) { flush(); endList(); out.push('<h4>' + inline(m[1]) + '</h4>'); return; }
+        endList(); para.push(l);
+      });
+      flush(); endList();
+      return out.join('');
+    }
+    function date(iso) {
+      var d = new Date(iso);
+      function f(loc) { try { return d.toLocaleDateString(loc, { day: 'numeric', month: 'long', year: 'numeric' }); } catch (e) { return iso.slice(0, 10); } }
+      return '<span class="date"><span data-id>' + f('id-ID') + '</span><span data-en>' + f('en-US') + '</span></span>';
+    }
+    if (!window.oncReleases) return;
+    oncReleases(repo)
+      .then(function (rels) {
+        rels = rels.slice(0, 3);
+        if (!rels.length) return;
+        var html = rels.map(function (r, i) {
+          var head = '<span class="ver">' + esc(r.tag_name) + '</span>' + date(r.published_at) +
+            (i === 0 ? '<span class="badge"><span data-id>Terbaru</span><span data-en>Latest</span></span>' : '');
+          var body = '<div class="rel-body">' + md(r.body || '') + '</div>';
+          return i === 0 ? '<article class="rel"><div class="rel-head">' + head + '</div>' + body + '</article>'
+                         : '<details class="rel"><summary>' + head + '</summary>' + body + '</details>';
+        }).join('');
+        box.innerHTML = html + box.innerHTML;
+      })
+      .catch(function () { /* offline atau limit API: tautan tetap ada */ });
+  })();
+</script>
+<!-- /onc-extras-js -->
   <!-- onc-fab -->
   <a class="onc-fab" href="https://overnightcoder219.github.io/" aria-label="OverNightCoder Apps: lihat semua aplikasi" title="OverNightCoder Apps">
     <img src="https://overnightcoder219.github.io/assets/overnightcoder-logo.svg" alt="" width="34" height="34">
