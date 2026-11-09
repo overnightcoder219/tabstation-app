@@ -1,6 +1,17 @@
 {
   "releases": [
     {
+      "tag_name": "v2.18.2",
+      "published_at": "2026-11-09T19:43:00Z",
+      "body": "## TabStation 2.18.2\n\n- Fixed: after an update the Dock stayed off and Android's 3-button navigation bar came back until Home was pressed. Opening TabStation (for example \"Open\" in the installer after updating) now brings the Dock back right away.\n- From 2.18.0: new setup guide, new Settings with a sidebar, in-app updates, splash screen, \"Report a bug\", Windows 11 style menus and many fixes. See the 2.18.0 notes for the full list.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. From 2.18.0 on, TabStation updates itself from Settings → Version & updates.\n",
+      "assets": [
+        {
+          "name": "TabStation-2.18.2.apk",
+          "download_count": 0
+        }
+      ]
+    },
+    {
       "tag_name": "v2.18.1",
       "published_at": "2026-11-09T19:39:41Z",
       "body": "## TabStation 2.18.1\n\n- Fixed: the \"Check for updates\" button in Settings could stay on \"Checking…\" after the automatic check had finished.\n- From 2.18.0: new setup guide, new Settings with a sidebar, in-app updates, splash screen, \"Report a bug\", Windows 11 style menus and many fixes. See the 2.18.0 notes for the full list.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. From 2.18.0 on, TabStation updates itself from Settings → Version & updates.\n",
@@ -25,7 +36,7 @@
     {
       "tag_name": "v2.17.1",
       "published_at": "2026-11-08T19:01:49Z",
-      "body": "## TabStation 2.17.1\n\n- New screenshots on the website (desktop with widgets, Edit Widgets, Control Center, Spotlight, Launchpad).\n- Fixed: the menu bar could show a raw package name (e.g. after a permission dialog) instead of the app name or \"TabStation\".\n- Fixed: apps opened from Spotlight now open after Spotlight has fully closed.\n- From 2.17.0: English and Bahasa Indonesia, keyboard shortcuts, arrangeable widgets, Snap Layouts, loading screens and a clean lock screen. See the 2.17.0 notes for the full list and the shortcut table.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. On HyperOS, allow Autostart for TabStation so it comes back after an update.\n",
+      "body": "",
       "assets": [
         {
           "name": "TabStation-2.17.1.apk",
