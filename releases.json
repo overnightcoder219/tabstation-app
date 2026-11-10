@@ -1,6 +1,17 @@
 {
   "releases": [
     {
+      "tag_name": "v2.18.11",
+      "published_at": "2026-11-10T10:20:34Z",
+      "body": "## TabStation 2.18.11\n\n- Smoother taskbar and Dock icons, in both macOS and Windows mode. Opening an app makes its icon grow and fade in, and closing an app makes it shrink and fade out. The other icons slide to their new places instead of jumping. In macOS mode the Dock background also widens and narrows smoothly.\n- Fixed: the macOS Dock could flicker, with icons jumping sideways for a moment, when its size changed.\n- Fixed: switching between macOS and Windows could flash the HyperOS navigation bar and rebuild the Dock several times, so icons and the back button appeared and disappeared.\n- Smoother end of the \"Switching appearance…\" screen. It now fades out instead of vanishing all at once, and the Dock and menu bar fade in with it.\n- The Dock menu now shows \"Remove from Dock\" / \"Pin to Dock\" in English when the app language is English.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. TabStation updates itself from Settings → Version & updates.\n",
+      "assets": [
+        {
+          "name": "TabStation-2.18.11.apk",
+          "download_count": 0
+        }
+      ]
+    },
+    {
       "tag_name": "v2.18.10",
       "published_at": "2026-11-10T09:44:23Z",
       "body": "## TabStation 2.18.10\n\n- Fixed: choosing \"HyperOS wallpaper\" in \"Change wallpaper\" didn't change the desktop. The previous picture stayed behind it. The desktop now shows your HyperOS wallpaper right away, in both macOS and Windows mode.\n- Removed \"System wallpaper (HyperOS)…\" from the desktop menu. It did nothing on HyperOS, and it was only about the HyperOS wallpaper, not TabStation. Use \"Same as HyperOS\" in \"Change wallpaper…\" to show your HyperOS wallpaper on the TabStation desktop.\n- In \"Change wallpaper\", \"HyperOS wallpaper\" is now called \"Same as HyperOS\", because the TabStation desktop just shows your current HyperOS wallpaper and doesn't change it.\n- Smoother macOS ↔ Windows switching: after you confirm, the \"Switching appearance…\" screen stays until the new desktop and wallpaper are ready, then takes you straight to the desktop in the new mode. No more brief freeze, and no need to tap \"Back to Desktop\".\n- Fixed: when Settings was open as a floating window (from the taskbar), \"Back to Desktop\" or switching mode could freeze, flash the HyperOS home screen or play two transitions. Settings now just closes and you're back on the desktop.\n- Fixed: a picture chosen with \"Upload picture…\" could end up as \"My picture\" for the other mode if the mode changed while the picker was open. It now always goes to the mode you were in when you opened the picker.\n- All six built-in wallpapers are now realistic 4K landscapes rendered for TabStation:\n  - macOS: **Dusk** (mountains at sunset), **Mist** (misty lake at dawn), **Ocean** (open sea with sun glitter)\n  - Windows: **Lake** (alpine lake with mirror reflections, was Bloom), **Aurora** (northern lights over snowy mountains), **Dunes** (desert dunes, was Prism)\n- From 2.18.9: built-in 4K wallpapers (macOS: Dusk, Mist, Ocean · Windows: Bloom, Aurora, Prism) and a \"Change wallpaper…\" gallery from the desktop menu and Settings.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. TabStation updates itself from Settings → Version & updates.\n",
@@ -25,7 +36,7 @@
     {
       "tag_name": "v2.18.8",
       "published_at": "2026-11-10T06:46:42Z",
-      "body": "## TabStation 2.18.8\n\n- **No more flash when opening apps:** opening an app that isn't running yet shows a short loading screen over your desktop wallpaper. Before, HyperOS briefly showed its own wallpaper or a black screen. Settings → Dock & windows → \"Loading screen when opening apps\" (needs Shizuku).\n- **Full taskbar and Dock:** when there are more apps than fit, the extra ones go into a \"…\" button at the end, like Windows 11. Before, icons overlapped the clock and status area or ran off the screen. The app you're using and your open apps stay visible first, then pinned apps. Open apps are ticked in the \"…\" list.\n- **Smoother macOS ↔ Windows switching:** while TabStation is on, picking the other mode asks first, then shows a \"Switching appearance…\" screen while the Dock, menu bar and wallpaper reload, with no flicker.\n- Fixed: \"Turn on TabStation\" in a Settings window opened from the taskbar could end on the HyperOS home screen.\n- Fixed: with the desktop in a top/bottom split (portrait), TabStation could take it out of the split.\n- Fixed: window buttons could stay hidden for up to 30 seconds if a finger was still down when the touch reader stopped. The reader now also stops when window buttons are turned off.\n- Fixed: very long bug reports could fail to open in the email app.\n- Smaller fixes: less memory used by the Home screen while it's in the background, and no grey flash when the custom wallpaper is turned off.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. TabStation updates itself from Settings → Version & updates.\n",
+      "body": "",
       "assets": [
         {
           "name": "TabStation-2.18.8.apk",
