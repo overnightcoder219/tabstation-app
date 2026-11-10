@@ -1,13 +1,24 @@
 {
   "releases": [
     {
+      "tag_name": "v2.18.7",
+      "published_at": "2026-11-10T05:52:31Z",
+      "body": "## TabStation 2.18.7\n\n- **Window buttons and moving windows:** the minimize, maximize and close buttons now hide the moment you touch a floating window's \"•••\" handle, so they no longer stay behind while you drag. Android doesn't report where a window is while it moves, so the buttons come back once the window has stopped.\n- **New setting:** Settings → Appearance → \"Buttons when a window moves\". **Tidy** (default) hides the buttons whenever a window moves, including when it is flung or brought back from the side of the screen, and shows them about 0.6 s after it stops. **Fast** shows them as soon as the new position is known.\n- Fixed: \"Back to Desktop\" in a Settings window opened from the taskbar turned the desktop into a small floating window with an \"Exit split\" panel that did nothing. The desktop now always opens full screen, and a desktop that is already stuck as a window repairs itself.\n- From 2.18.0: new setup guide, new Settings with a sidebar, in-app updates, splash screen, \"Report a bug\", Windows 11 style menus and many fixes. See the 2.18.0 notes for the full list.\n\nRequires Android 10+. Shizuku is recommended (needed for the window buttons). Install over the previous version; settings are kept. From 2.18.0 on, TabStation updates itself from Settings → Version & updates.\n",
+      "assets": [
+        {
+          "name": "TabStation-2.18.7.apk",
+          "download_count": 0
+        }
+      ]
+    },
+    {
       "tag_name": "v2.18.6",
       "published_at": "2026-11-09T20:45:33Z",
       "body": "## TabStation 2.18.6\n\n- **Smoother splash screen:** no more flicker when TabStation opens. The logo now continues straight from the icon you tapped, the Dock rises with its app icons, and everything fades smoothly into TabStation. Before, the logo disappeared for a split second just before the splash closed.\n- From 2.18.5: TabStation really stops when you shut it down, a faster start after restarting the tablet, and \"Don't show again today\" on the Turn on message.\n- From 2.18.0: new setup guide, new Settings with a sidebar, in-app updates, \"Report a bug\", Windows 11 style menus and many fixes. See the 2.18.0 notes for the full list.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. From 2.18.0 on, TabStation updates itself from Settings → Version & updates.\n",
       "assets": [
         {
           "name": "TabStation-2.18.6.apk",
-          "download_count": 3
+          "download_count": 4
         }
       ]
     },
@@ -25,7 +36,7 @@
     {
       "tag_name": "v2.18.4",
       "published_at": "2026-11-09T19:56:10Z",
-      "body": "## TabStation 2.18.4\n\n- Turning on TabStation now asks with one short message: the extra features that are on and about how much memory they use, with \"Turn on\" and \"Review first\" (opens Extra features in Settings). The old dialog repeated every switch and the language choice from Settings.\n- Fixed: after an in-app update, \"Open\" could show Settings instead of going back to the desktop.\n- From 2.18.0: new setup guide, new Settings with a sidebar, in-app updates, splash screen, \"Report a bug\", Windows 11 style menus and many fixes. See the 2.18.0 notes for the full list.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. From 2.18.0 on, TabStation updates itself from Settings → Version & updates.\n",
+      "body": "",
       "assets": [
         {
           "name": "TabStation-2.18.4.apk",
