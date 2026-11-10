@@ -1,13 +1,24 @@
 {
   "releases": [
     {
+      "tag_name": "v2.18.9",
+      "published_at": "2026-11-10T07:16:04Z",
+      "body": "## TabStation 2.18.9\n\n- **Built-in 4K wallpapers:** three original wallpapers for each mode, rendered at 3840×2560 and drawn for TabStation (free to use, not taken from Apple or Microsoft).\n  - macOS: **Dusk**, **Mist**, **Ocean**\n  - Windows: **Bloom**, **Aurora**, **Prism**\n- **Change wallpaper:** right-click or long-press the desktop → \"Change wallpaper…\" opens a gallery with previews: the presets, \"My picture\", \"Upload picture…\" and the HyperOS wallpaper. The same gallery is in Settings → Appearance → Wallpaper. Each mode keeps its own choice.\n- Your own picture is kept when you pick a preset or the HyperOS wallpaper, so you can switch back any time. \"Use system wallpaper\" no longer deletes it.\n- New installs start with a preset. If you update and never set a TabStation wallpaper, you keep the HyperOS wallpaper as before.\n- Windows mode: tapping a window's \"•••\" handle no longer leaves TabStation's window buttons on top of the HyperOS window menu.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. TabStation updates itself from Settings → Version & updates.\n",
+      "assets": [
+        {
+          "name": "TabStation-2.18.9.apk",
+          "download_count": 0
+        }
+      ]
+    },
+    {
       "tag_name": "v2.18.8",
       "published_at": "2026-11-10T06:46:42Z",
       "body": "## TabStation 2.18.8\n\n- **No more flash when opening apps:** opening an app that isn't running yet shows a short loading screen over your desktop wallpaper. Before, HyperOS briefly showed its own wallpaper or a black screen. Settings → Dock & windows → \"Loading screen when opening apps\" (needs Shizuku).\n- **Full taskbar and Dock:** when there are more apps than fit, the extra ones go into a \"…\" button at the end, like Windows 11. Before, icons overlapped the clock and status area or ran off the screen. The app you're using and your open apps stay visible first, then pinned apps. Open apps are ticked in the \"…\" list.\n- **Smoother macOS ↔ Windows switching:** while TabStation is on, picking the other mode asks first, then shows a \"Switching appearance…\" screen while the Dock, menu bar and wallpaper reload, with no flicker.\n- Fixed: \"Turn on TabStation\" in a Settings window opened from the taskbar could end on the HyperOS home screen.\n- Fixed: with the desktop in a top/bottom split (portrait), TabStation could take it out of the split.\n- Fixed: window buttons could stay hidden for up to 30 seconds if a finger was still down when the touch reader stopped. The reader now also stops when window buttons are turned off.\n- Fixed: very long bug reports could fail to open in the email app.\n- Smaller fixes: less memory used by the Home screen while it's in the background, and no grey flash when the custom wallpaper is turned off.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. TabStation updates itself from Settings → Version & updates.\n",
       "assets": [
         {
           "name": "TabStation-2.18.8.apk",
-          "download_count": 0
+          "download_count": 1
         }
       ]
     },
@@ -18,14 +29,14 @@
       "assets": [
         {
           "name": "TabStation-2.18.7.apk",
-          "download_count": 2
+          "download_count": 3
         }
       ]
     },
     {
       "tag_name": "v2.18.6",
       "published_at": "2026-11-09T20:45:33Z",
-      "body": "## TabStation 2.18.6\n\n- **Smoother splash screen:** no more flicker when TabStation opens. The logo now continues straight from the icon you tapped, the Dock rises with its app icons, and everything fades smoothly into TabStation. Before, the logo disappeared for a split second just before the splash closed.\n- From 2.18.5: TabStation really stops when you shut it down, a faster start after restarting the tablet, and \"Don't show again today\" on the Turn on message.\n- From 2.18.0: new setup guide, new Settings with a sidebar, in-app updates, \"Report a bug\", Windows 11 style menus and many fixes. See the 2.18.0 notes for the full list.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. From 2.18.0 on, TabStation updates itself from Settings → Version & updates.\n",
+      "body": "",
       "assets": [
         {
           "name": "TabStation-2.18.6.apk",
