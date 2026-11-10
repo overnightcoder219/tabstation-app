@@ -1,6 +1,17 @@
 {
   "releases": [
     {
+      "tag_name": "v2.18.13",
+      "published_at": "2026-11-10T18:04:38Z",
+      "body": "## TabStation 2.18.13\n\n- Clearing notifications is now animated, in both macOS and Windows mode. With \"Clear All\", the notifications slide out to the right one after another from the top, the list shrinks smoothly and \"No Notifications\" fades in. Closing a single notification or a whole app group with × works the same way. The panel no longer jumps or flashes, and tapping \"Clear All\" twice doesn't clear twice.\n- \"Clear All\" now works like HyperOS: notifications that can't be dismissed stay in the list. Those notifications no longer show a × button, and a notification that the system didn't remove comes back right away instead of staying hidden.\n- Uses less memory while the screen is off again. The desktop picture is released after a minute with the screen off, as it was before 2.18.12.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. TabStation updates itself from Settings → Version & updates.\n",
+      "assets": [
+        {
+          "name": "TabStation-2.18.13.apk",
+          "download_count": 0
+        }
+      ]
+    },
+    {
       "tag_name": "v2.18.12",
       "published_at": "2026-11-10T16:48:58Z",
       "body": "## TabStation 2.18.12\n\n- Uses less memory when it turns on. The desktop picture is now loaded once and shared, instead of being loaded twice at the same time. The brief memory peak while starting is about a third lower, and TabStation uses less memory afterwards.\n- Lighter background checks while you use apps. TabStation now checks whether HyperOS has hidden its Dock only when you switch apps, plus a check every 10 seconds, instead of every 2 seconds. Each check also asks the system for much less information.\n- Faster window and split-screen checks.\n- Smoother app switching. The Dock and taskbar no longer rebuild all their icons every time you switch apps. In Windows mode only the highlight moves to the active app.\n- Notification Center, Control Center and the other menu bar and taskbar panels now close with a smooth animation, the reverse of how they open, instead of disappearing at once. This works when you tap outside, press Back, tap the same icon again or open another panel.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. TabStation updates itself from Settings → Version & updates.\n",
@@ -25,7 +36,7 @@
     {
       "tag_name": "v2.18.10",
       "published_at": "2026-11-10T09:44:23Z",
-      "body": "## TabStation 2.18.10\n\n- Fixed: choosing \"HyperOS wallpaper\" in \"Change wallpaper\" didn't change the desktop. The previous picture stayed behind it. The desktop now shows your HyperOS wallpaper right away, in both macOS and Windows mode.\n- Removed \"System wallpaper (HyperOS)…\" from the desktop menu. It did nothing on HyperOS, and it was only about the HyperOS wallpaper, not TabStation. Use \"Same as HyperOS\" in \"Change wallpaper…\" to show your HyperOS wallpaper on the TabStation desktop.\n- In \"Change wallpaper\", \"HyperOS wallpaper\" is now called \"Same as HyperOS\", because the TabStation desktop just shows your current HyperOS wallpaper and doesn't change it.\n- Smoother macOS ↔ Windows switching: after you confirm, the \"Switching appearance…\" screen stays until the new desktop and wallpaper are ready, then takes you straight to the desktop in the new mode. No more brief freeze, and no need to tap \"Back to Desktop\".\n- Fixed: when Settings was open as a floating window (from the taskbar), \"Back to Desktop\" or switching mode could freeze, flash the HyperOS home screen or play two transitions. Settings now just closes and you're back on the desktop.\n- Fixed: a picture chosen with \"Upload picture…\" could end up as \"My picture\" for the other mode if the mode changed while the picker was open. It now always goes to the mode you were in when you opened the picker.\n- All six built-in wallpapers are now realistic 4K landscapes rendered for TabStation:\n  - macOS: **Dusk** (mountains at sunset), **Mist** (misty lake at dawn), **Ocean** (open sea with sun glitter)\n  - Windows: **Lake** (alpine lake with mirror reflections, was Bloom), **Aurora** (northern lights over snowy mountains), **Dunes** (desert dunes, was Prism)\n- From 2.18.9: built-in 4K wallpapers (macOS: Dusk, Mist, Ocean · Windows: Bloom, Aurora, Prism) and a \"Change wallpaper…\" gallery from the desktop menu and Settings.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. TabStation updates itself from Settings → Version & updates.\n",
+      "body": "",
       "assets": [
         {
           "name": "TabStation-2.18.10.apk",
