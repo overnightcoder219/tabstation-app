@@ -1,6 +1,17 @@
 {
   "releases": [
     {
+      "tag_name": "v2.18.19",
+      "published_at": "2026-11-11T14:59:09Z",
+      "body": "## TabStation 2.18.19\n\n- Gemini shows as one app in the Dock and taskbar. Its window belongs to the Google app, which used to add a second Google icon marked as open. Now only the Gemini icon appears, and the menu bar shows \"Gemini\" while it's in front. The same goes for other apps that open their window inside another app.\n- Window buttons (close, minimize, maximize) no longer appear on top of the loading screen while an app opens. They show up once the app's window is visible.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. TabStation updates itself from Settings → Version & updates.\n",
+      "assets": [
+        {
+          "name": "TabStation-2.18.19.apk",
+          "download_count": 0
+        }
+      ]
+    },
+    {
       "tag_name": "v2.18.18",
       "published_at": "2026-11-11T14:48:28Z",
       "body": "## TabStation 2.18.18\n\n- Apps that open another app's window, like Gemini (which opens in the Google app), no longer keep the loading screen up for 12 seconds. It closes as soon as the window appears.\n- These apps now get window buttons (close, minimize, maximize) too.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. TabStation updates itself from Settings → Version & updates.\n",
@@ -18,14 +29,14 @@
       "assets": [
         {
           "name": "TabStation-2.18.17.apk",
-          "download_count": 0
+          "download_count": 1
         }
       ]
     },
     {
       "tag_name": "v2.18.16",
       "published_at": "2026-11-11T09:18:18Z",
-      "body": "## TabStation 2.18.16\n\n- The app switcher opens with Alt + 1 (or Alt + `). Keep holding Alt and press 1 again to move to the next app, add Shift to go back, then let go of Alt to switch. Alt + Esc no longer opens it, because apps treat Esc as Back and closed themselves. Alt + Tab stays with HyperOS Recents.\n- Choosing an app that is already open in the switcher now only brings it to the front. It no longer plays the opening animation, and the window keeps its size and position instead of turning full screen or minimizing.\n- The switcher opens instantly and only lists apps that are still open. An app you just closed no longer shows up, so choosing it can't reopen it with a loading screen.\n- Opening Control Center no longer takes over the Dolby effect from the system sound settings. TabStation only takes over when you tap the Dolby button.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. TabStation updates itself from Settings → Version & updates.\n",
+      "body": "",
       "assets": [
         {
           "name": "TabStation-2.18.16.apk",
