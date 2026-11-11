@@ -1,6 +1,17 @@
 {
   "releases": [
     {
+      "tag_name": "v2.18.14",
+      "published_at": "2026-11-11T07:09:18Z",
+      "body": "## TabStation 2.18.14\n\n- Clearer toggles. Switches in TabStation Settings, the Control Center popovers and the auto-brightness switch now show a solid accent color when on and a clear gray when off, with a white knob, like macOS and iOS. Before, the colors looked faded and on and off were hard to tell apart.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. TabStation updates itself from Settings → Version & updates.\n",
+      "assets": [
+        {
+          "name": "TabStation-2.18.14.apk",
+          "download_count": 0
+        }
+      ]
+    },
+    {
       "tag_name": "v2.18.13",
       "published_at": "2026-11-10T18:04:38Z",
       "body": "## TabStation 2.18.13\n\n- Clearing notifications is now animated, in both macOS and Windows mode. With \"Clear All\", the notifications slide out to the right one after another from the top, the list shrinks smoothly and \"No Notifications\" fades in. Closing a single notification or a whole app group with × works the same way. The panel no longer jumps or flashes, and tapping \"Clear All\" twice doesn't clear twice.\n- \"Clear All\" now works like HyperOS: notifications that can't be dismissed stay in the list. Those notifications no longer show a × button, and a notification that the system didn't remove comes back right away instead of staying hidden.\n- Uses less memory while the screen is off again. The desktop picture is released after a minute with the screen off, as it was before 2.18.12.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. TabStation updates itself from Settings → Version & updates.\n",
@@ -25,7 +36,7 @@
     {
       "tag_name": "v2.18.11",
       "published_at": "2026-11-10T10:20:34Z",
-      "body": "## TabStation 2.18.11\n\n- Smoother taskbar and Dock icons, in both macOS and Windows mode. Opening an app makes its icon grow and fade in, and closing an app makes it shrink and fade out. The other icons slide to their new places instead of jumping. In macOS mode the Dock background also widens and narrows smoothly.\n- Fixed: the macOS Dock could flicker, with icons jumping sideways for a moment, when its size changed.\n- Fixed: switching between macOS and Windows could flash the HyperOS navigation bar and rebuild the Dock several times, so icons and the back button appeared and disappeared.\n- Smoother end of the \"Switching appearance…\" screen. It now fades out instead of vanishing all at once, and the Dock and menu bar fade in with it.\n- The Dock menu now shows \"Remove from Dock\" / \"Pin to Dock\" in English when the app language is English.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. TabStation updates itself from Settings → Version & updates.\n",
+      "body": "",
       "assets": [
         {
           "name": "TabStation-2.18.11.apk",
