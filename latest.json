@@ -1,7 +1,7 @@
 {
-  "versionName": "2.18.19",
-  "versionCode": 172,
-  "apk": "https://github.com/overnightcoder219/tabstation-app/releases/download/v2.18.19/TabStation-2.18.19.apk",
-  "sha256": "8ac1077800e83dbe07937ff648159534bcb424c53aef297a2e01c07f02ccf078",
-  "notes": "• Gemini shows as one app in the Dock and taskbar. Its window belongs to the Google app, which used to add a second Google icon marked as open. Now only the Gemini icon appears, and the menu bar shows \"Gemini\" while it's in front. The same goes for other apps that open their window inside another app.\n• Window buttons (close, minimize, maximize) no longer appear on top of the loading screen while an app opens. They show up once the app's window is visible.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. TabStation updates itself from Settings → Version & updates."
+  "versionName": "2.18.20",
+  "versionCode": 173,
+  "apk": "https://github.com/overnightcoder219/tabstation-app/releases/download/v2.18.20/TabStation-2.18.20.apk",
+  "sha256": "529fefe4c6c87bd39dd2bad66566e1eef1a7fccbc81b667a8fce6697ccbc90aa",
+  "notes": "• Notification groups you unfolded in Notification Center (or Action Center) are stacked again the next time you open it, like on macOS.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. TabStation updates itself from Settings → Version & updates."
 }
