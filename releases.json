@@ -1,13 +1,24 @@
 {
   "releases": [
     {
+      "tag_name": "v2.18.15",
+      "published_at": "2026-11-11T08:47:32Z",
+      "body": "## TabStation 2.18.15\n\n- Fixed apps turning black after you open them from a notification or tap the ⋯ handle at the top of the screen. TabStation could reopen its desktop while HyperOS was still animating, which left the app invisible and sometimes made it show \"isn't responding\". TabStation now waits until HyperOS has finished.\n- New Control Center in Liquid Glass style, laid out like macOS: each control floats on its own frosted-glass tile with real blur behind it. Wi-Fi shows the network name, and there is a Now Playing tile with play, pause and skip, plus Rotation, Screenshot, Show Desktop, Dark Mode, Battery Saver, Focus, Display and Sound.\n- Dolby Atmos on/off in Control Center (the \"Dolby\" button on the Sound card) and in the Sound menu. Touch and hold to open the Dolby settings.\n- Notification Center, the Dock, the menu bar, menus, Spotlight, the app switcher and the Wi-Fi, Bluetooth, Sound and Focus menus now use the same frosted glass.\n- Notification stacks work like macOS: tap a stack to unfold it in place, and \"Show less\" folds it again, both animated. Notifications are a bit smaller and closer together, and the Notification Center title is smaller.\n- Turning Wi-Fi or Bluetooth on or off in their menus no longer reloads the menu. The list grows or shrinks smoothly and the devices fade in.\n- The app switcher now opens with Alt + Esc too, for keyboards where Esc and ` share one key. Keep holding Alt and press Esc again to move to the next app, then let go of Alt to switch. It lists all open apps, most recent first. When no apps are open, it lists the apps you used last. The icons are centered, and the app's name sits under the selected icon.\n- Pressing the Windows/Command key (the square key next to Alt) on its own opens Launchpad. TabStation hides the HyperOS dock that the key also brings up.\n- The Glass opacity setting now applies to everything in macOS mode: the Dock, menu bar, panels, menus, Spotlight and widgets.\n- Clearer toggles (from 2.18.14).\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. TabStation updates itself from Settings → Version & updates.\n",
+      "assets": [
+        {
+          "name": "TabStation-2.18.15.apk",
+          "download_count": 0
+        }
+      ]
+    },
+    {
       "tag_name": "v2.18.14",
       "published_at": "2026-11-11T07:09:18Z",
       "body": "## TabStation 2.18.14\n\n- Clearer toggles. Switches in TabStation Settings, the Control Center popovers and the auto-brightness switch now show a solid accent color when on and a clear gray when off, with a white knob, like macOS and iOS. Before, the colors looked faded and on and off were hard to tell apart.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. TabStation updates itself from Settings → Version & updates.\n",
       "assets": [
         {
           "name": "TabStation-2.18.14.apk",
-          "download_count": 0
+          "download_count": 1
         }
       ]
     },
@@ -18,14 +29,14 @@
       "assets": [
         {
           "name": "TabStation-2.18.13.apk",
-          "download_count": 5
+          "download_count": 8
         }
       ]
     },
     {
       "tag_name": "v2.18.12",
       "published_at": "2026-11-10T16:48:58Z",
-      "body": "## TabStation 2.18.12\n\n- Uses less memory when it turns on. The desktop picture is now loaded once and shared, instead of being loaded twice at the same time. The brief memory peak while starting is about a third lower, and TabStation uses less memory afterwards.\n- Lighter background checks while you use apps. TabStation now checks whether HyperOS has hidden its Dock only when you switch apps, plus a check every 10 seconds, instead of every 2 seconds. Each check also asks the system for much less information.\n- Faster window and split-screen checks.\n- Smoother app switching. The Dock and taskbar no longer rebuild all their icons every time you switch apps. In Windows mode only the highlight moves to the active app.\n- Notification Center, Control Center and the other menu bar and taskbar panels now close with a smooth animation, the reverse of how they open, instead of disappearing at once. This works when you tap outside, press Back, tap the same icon again or open another panel.\n\nRequires Android 10+. Shizuku is recommended. Install over the previous version; settings are kept. TabStation updates itself from Settings → Version & updates.\n",
+      "body": "",
       "assets": [
         {
           "name": "TabStation-2.18.12.apk",
